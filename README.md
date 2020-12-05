@@ -100,3 +100,4 @@ Expand the "Build" settings on left
 For coding styling we decided to go with ESLint and [React Native community's styleguide](https://github.com/facebook/react-native/tree/master/packages/eslint-config-react-native-community#readme).
 "# MyKiranaBookRN" 
 "# MyKiranaBookRN" 
+"# MyKiranaBookRN" 
