@@ -7,7 +7,7 @@ export default {
   },
   home: {
     header: 'Home',
-    message: 'Welcome',
+    message: 'Welcome1',
   },
   login: {
     username: 'Username',
