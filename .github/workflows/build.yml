@@ -1,4 +1,4 @@
-name: 'React Native Android Build APK'
+name: "React Native Android Build APK"
 on:
   push:
     branches:
@@ -26,11 +26,7 @@ jobs:
         run: |
           npm install
       - name: Make Gradlew Executable
-        run: cd android && chmod +x gradlew
-        # Build Command
-      - name: Build Android Release
-        run: |
-          cd android && gradlew assembleRelease
+        run: cd android && chmod +x gradlew && ./gradlew assembleRelease
       # Upload to Artifact
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
