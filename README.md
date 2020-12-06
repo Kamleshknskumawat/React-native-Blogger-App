@@ -101,3 +101,139 @@ For coding styling we decided to go with ESLint and [React Native community's st
 "# MyKiranaBookRN" 
 "# MyKiranaBookRN" 
 "# MyKiranaBookRN" 
+https://medium.com/@niraj_prajapati/automate-android-app-publishing-on-play-store-using-github-actions-554de7801c36
+
+#TOOLS
+
+https://github.com/react-native-community/lottie-react-native
+https://www.awesome-react-native.com/
+
+
+
+adb reverse tcp:8081 tcp:8081
+
+C:\Users\saurabhdr\AppData\Local\Android\sdk\emulator\emulator.exe -avd Pixel_2_API_28 -dns-server 8.8.8.8
+C:\Users\saurabhdr\AppData\Local\Android\sdk\emulator\emulator.exe -avd Pixel_2_XL_API_27 -dns-server 8.8.8.8
+
+#PATH
+F:\expos\git\way2love\way2loveReactnative\android\app\build\outputs\apk\debug
+#release
+F:\expos\git\way2love\way2loveReactnative\android\app\release
+
+npx react-native init way2love --package=com.in.kumawat.way2love 
+
+
+#ScreenMaker
+
+https://previewed.app/screenshots/maker
+
+npm run android
+
+react-native run-android
+
+npm i react-native-svg
+
+react-native start --reset-cache 
+
+INSTALL || https://reactnavigation.org/
+npm install @react-navigation/native
+npm i @react-navigation/stack
+
+if need
+
+react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
+
+#For Keystore Generator
+
+
+-------------------------------------------------------------------------------------------------------------
+F:\expos\git\way2love\way2loveReactnative\android\app>keytool -genkeypair -v -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+Enter keystore password:  
+Re-enter new password: 
+What is your first and last name?
+  [Unknown]:  KamleshKumar Kumawat
+What is the name of your organizational unit?
+  [Unknown]:  kumawat org
+What is the name of your organization?
+  [Unknown]:  kumawat
+What is the name of your City or Locality?
+  [Unknown]:  ahmedabad
+What is the name of your State or Province?
+  [Unknown]:  GJ
+What is the two-letter country code for this unit?
+  [Unknown]:  IN
+Is CN=KamleshKumar Kumawat, OU=kumawat org, O=kumawat, L=ahmedabad, ST=GJ, C=IN correct?
+  [no]:  yes
+
+Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 10,000 days
+        for: CN=KamleshKumar Kumawat, OU=kumawat org, O=kumawat, L=ahmedabad, ST=GJ, C=IN
+Enter key password for <my-key-alias>
+        (RETURN if same as keystore password):
+[Storing my-upload-key.keystore]
+
+Warning:
+The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore my-upload-key.keystore -destkeystore my-upload-key.keystore -deststoretype pkcs12".
+
+
+#Help Link
+https://reactnative.dev/docs/signed-apk-android
+https://www.youtube.com/watch?v=yfYTOQBCnsc 
+--------------------------------------------------------------------------------------------
+
+#ANDROID BUILD 
+----------------------------------------------
+Goto Android folder -> gradlew bundleRelease
+
+-------------------------------------------
+ #Upload apk for testing 
+-------------------------
+ https://www.diawi.com/
+
+ https://www.installonair.com/
+-------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# For BUILD 
+-> build.gradle -> uncomment below line
+    // bundleInDebug: true,
+    //  devDisabledInDebug: true
+
+
+#Logo with Credit
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+// const App: () => React$Node = () => {
+// //   state = {
+// //     myState: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, used do eiusmod'
+// //  }
+//   // firstFunc=()=>{
+//   //   Alert.alert('hello')
+//   // }
+//   // showAlert=()=> {
+//   //   AlertIOS.alert('Awesome Alert', 'This is my first React Native alert.', [{text: 'Thanks'}] )
+//   // }
+//   return (
+//     <>
+//     <StatusBar barStyle="dark-content" />
+//     <SafeAreaView>
+//       <ScrollView
+//         contentInsetAdjustmentBehavior="automatic"
+//         style={styles.scrollView}>
+//          <View style={{ backgroundColor: "blue", flex: 0.3 }} />
+//       <View style={{ backgroundColor: "red", flex: 0.5 }} />
+//       <Text>Hello World! zxczxc</Text>
+//       <View>
+//          {/* <Text> {this.state.myState} </Text> */}
+//       </View>
+//         <Button
+//           title="Press me"
+//           onPress={this.showAlert}
+//         />
+//         <Image source={{uri:'https://cdn.pixabay.com/photo/2020/04/03/19/02/virus-4999857_960_720.png'}} style={styles.img}/>
+//       </ScrollView>
+//     </SafeAreaView>
+//   </>
+//   );
+
+// };
