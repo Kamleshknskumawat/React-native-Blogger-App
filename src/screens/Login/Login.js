@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { login, TYPES } from '_actions/UserActions';
-import { Button, ErrorView, TextField } from '_components';
+import { ErrorView, TextField } from '_components';
+import { Block, Button, Card, Icon, Input, NavBar } from 'galio-framework';
 import strings from '_localization';
 import styles from '_screens/Login/Login.styles';
 import errorsSelector from '_selectors/ErrorSelectors';
 import { isLoadingSelector } from '_selectors/StatusSelectors';
 import { ShadowStyles, TextStyles } from '_theme';
-
+import { theme, withGalio, GalioProvider } from 'galio-framework'
+import { Image } from 'react-native-elements';
 function Login() {
   const { colors } = useTheme();
   const dispatch = useDispatch();
@@ -30,41 +32,39 @@ function Login() {
   };
 
   return (
-    <View style={styles.container}>
-      <View
-        style={[
-          styles.formContainer,
-          ShadowStyles.shadow,
-          { backgroundColor: colors.primary },
-        ]}
-      >
-        <Text style={[TextStyles.fieldTitle, { color: colors.text }]}>
-          {strings.login.username}
-        </Text>
-        <TextField
-          accessibilityHint={strings.login.usernameHint}
-          accessibilityLabel={strings.login.username}
-          onChangeText={setUsername}
-          placeholder={strings.login.username}
-          value={username}
+
+    <View>
+      <View style={styles.blocks}>
+        <Card
+          borderless
+          image="https://assets-ouch.icons8.com/free-download/435/44bd29b6-dec5-4fbb-84a4-83f2cf625cf2.png?filename=clip-1061.png"
+          imageStyle={styles.cardImageRadius}
+          imageBlockStyle={{ padding: theme.SIZES.BASE / 2 }}
         />
-        <Text style={[TextStyles.fieldTitle, { color: colors.text }]}>
-          {strings.login.password}
-        </Text>
-        <TextField
-          secureTextEntry
-          accessibilityHint={strings.login.passwordHint}
-          accessibilityLabel={strings.login.password}
-          onChangeText={setPassword}
-          placeholder={strings.login.password}
-          value={password}
+        <Image
+          source={{ uri: "https://assets-ouch.icons8.com/free-download/435/44bd29b6-dec5-4fbb-84a4-83f2cf625cf2.png?filename=clip-1061.png" }}
+        /> 
+      </View>
+      <View style={styles.container}>
+
+        <Input
+          placeholder="Email Address"
+          placeholderTextColor="#dbdbdc"
+          borderless
+          type="email-address"
+          style={styles.input}
         />
-        <ErrorView errors={errors} />
-        <Button
-          onPress={handleSubmit}
-          style={styles.submitButton}
-          title={isLoading ? strings.actions.loading : strings.login.button}
+        <Input
+
+          password viewPass
+          placeholder="sssss"
+          placeholderTextColor="#dbdbdc"
+          borderless
+          iconSize={25}
+          style={styles.input}
         />
+
+        <Button radius={70} size="large" color="success" style={styles.submitButton}>Login</Button>
       </View>
     </View>
   );
