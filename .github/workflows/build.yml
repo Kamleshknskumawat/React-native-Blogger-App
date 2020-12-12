@@ -6,7 +6,7 @@ on:
 jobs:
   # First Job
   install-and-test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install npm dependencies
@@ -26,7 +26,7 @@ jobs:
         run: |
           npm install
       - name: Make Gradlew Executable
-        run: cd android && chmod +x gradlew && ./gradlew assembleRelease --warning-mode all
+        run: cd android && gradlew assembleRelease --warning-mode all
       # Upload to Artifact
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
