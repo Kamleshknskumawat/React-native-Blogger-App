@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "737848524162",
+    "project_id": "mykiranabook-499c6",
+    "storage_bucket": "mykiranabook-499c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:737848524162:android:bdc1f53b80894a071be39b",
+        "android_client_info": {
+          "package_name": "com.kumawat.mykiranabook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "737848524162-6pavipn6u8ve96071sq3ag02713dckne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsyCL3uDC-ecvSvvQ0kuqnEPdYS1PymSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "737848524162-6pavipn6u8ve96071sq3ag02713dckne.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

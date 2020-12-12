@@ -6,11 +6,11 @@ import AppNavigator from '_navigation/AppNavigator';
 import AuthNavigator from '_navigation/AuthNavigator';
 import { getUser } from '_selectors/UserSelectors';
 import { theme } from '_theme';
-
+import { createDrawerNavigator } from '@react-navigation/drawer';
 function RootNavigator() {
   const user = useSelector(getUser);
   const scheme = useColorScheme();
-
+  const Drawer = createDrawerNavigator()
   return (
     <NavigationContainer theme={theme[scheme]}>
       {user ? <AppNavigator /> : <AuthNavigator />}

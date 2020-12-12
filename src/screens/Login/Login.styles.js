@@ -7,9 +7,14 @@ const styles = StyleSheet.create({
     // marginBottom: 36,
     // padding:20
   },
+  text:{
+    textAlign: 'center' // Centered horizontally
+
+  },
   formContainer: {
     justifyContent: 'center',
     alignItems: 'flex-start',
+    
     borderRadius: 5,
     padding: 20,
     width: '100%',
@@ -26,7 +31,7 @@ const styles = StyleSheet.create({
   blocks: {
 
     justifyContent: 'flex-end',
-    marginTop: 100,
+    marginTop: 10,
     // padding:20
   },
   input: {

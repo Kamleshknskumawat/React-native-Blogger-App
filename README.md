@@ -130,7 +130,7 @@ https://previewed.app/screenshots/maker
 npm run android
 
 react-native run-android
-
+npx react-native run-android
 npm i react-native-svg
 
 react-native start --reset-cache 
