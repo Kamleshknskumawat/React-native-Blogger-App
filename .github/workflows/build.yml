@@ -6,7 +6,7 @@ on:
 jobs:
   # First Job
   install-and-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - name: Install npm dependencies
