@@ -26,7 +26,7 @@ jobs:
         run: |
           npm install
       - name: Make Gradlew Executable
-        run: cd android && ./gradlew clean && ./gradlew assembleRelease
+        run: cd android && ./gradlew clean && ./gradlew app:assembleRelease
       # Upload to Artifact
       - name: Upload Artifact
         uses: actions/upload-artifact@v1

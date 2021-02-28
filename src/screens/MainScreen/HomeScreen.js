@@ -35,25 +35,24 @@ const HomeScreen = ({ navigation }) => {
       title: 'This is first list'
     }
   );
+  let mydatta = [];
+  const theme = useTheme();
   useEffect(() => {
 
     console.log("received");
-     });
-  let mydatta = [];
-  const theme = useTheme();
-  const getPost = () => {
-    console.log("Hello world");
-    requestPostBodyFalse(10)
-      .then((json) => setData(json.items))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false),
-        data.map((data) => {
-          console.log(data.title);
-        }),
-        mydatta = data);
-
- /* O N E S I G N A L   S E T U P */
- OneSignal.setAppId("9d6dd9ea-79f5-4353-b090-02429b4d1f82");
+    console.log(data);
+    if(data==undefined || data==''){
+      console.log("isempty");
+      console.log("Hello world");
+      requestPostBodyFalse(10)
+        .then((json) => setData(json.items))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false),
+          data.map((data) => {
+            console.log(data.title);
+          }),
+          mydatta = data);
+          OneSignal.setAppId("9d6dd9ea-79f5-4353-b090-02429b4d1f82");
  OneSignal.setLogLevel(6, 0);
  OneSignal.setRequiresUserPrivacyConsent(false);
  OneSignal.promptForPushNotificationsWithUserResponse(response => {
@@ -100,6 +99,19 @@ const HomeScreen = ({ navigation }) => {
 //      isSubscribed : deviceState.isSubscribed
 //  });
  setSubscribed(deviceState.isSubscribed);
+    }else{
+      console.log("not emptyu");
+    }
+
+
+
+     });
+
+  const getPost = () => {
+
+
+ /* O N E S I G N A L   S E T U P */
+ 
 
   }
   const lapsList = () => {
