@@ -4,7 +4,6 @@ import { enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
 import RootNavigator from '_navigation';
 import { persistor, store } from '_store';
-
 enableScreens();
 
 function App() {

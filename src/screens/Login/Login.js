@@ -2,7 +2,7 @@ import { useTheme } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { login, TYPES } from '_actions/UserActions';
+import { login, TYPES,forgotPassword } from '_actions/UserActions';
 import { ErrorView, TextField } from '_components';
 import { Block, Text, Button, Card, Icon, Input, NavBar } from 'galio-framework';
 import { SafeAreaView, ScrollView } from 'react-native';
@@ -13,6 +13,8 @@ import { isLoadingSelector } from '_selectors/StatusSelectors';
 import { ShadowStyles, TextStyles } from '_theme';
 import { theme, withGalio, GalioProvider } from 'galio-framework'
 import { Image } from 'react-native-elements';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 function Login() {
   const { colors } = useTheme();
   const dispatch = useDispatch();
@@ -22,6 +24,7 @@ function Login() {
   const isLoading = useSelector(state =>
     isLoadingSelector([TYPES.LOGIN], state)
   );
+ 
 
   const errors = useSelector(
     state => errorsSelector([TYPES.LOGIN], state),
@@ -31,7 +34,13 @@ function Login() {
   const handleSubmit = () => {
     dispatch(login(username, password));
   };
+  const forgotScreen = () => {
+    alert("hello world");
 
+   // dispatch(forgotPassword())
+ //  navigation.dispatch()
+  }
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -64,7 +73,10 @@ function Login() {
             onChangeText={setPassword}
             value={password}
           />
-          <Text h5 >Forgot Password</Text>
+          {/* <Text h5 onPress={() => navigation.navigate('forgotPassword', { screenName: "ForgotPassword" })} >Forgot Passwrd</Text> */}
+     
+         
+          <Text h5 onPress={() => navigation.navigate('ForgotPassword')} >Forgot Password</Text>
           <Button radius={70} onPress={handleSubmit} size="large" color="success" style={styles.submitButton}>Login</Button>
 
         </View>

@@ -1,13 +1,16 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { NAVIGATION } from '_constants';
-import { Home } from '_screens';
+import { ForgotPassword, Home } from '_screens'
+import PostWithId from '_screens/MainScreen/PostWithId';
 const Stack = createStackNavigator();
 function HomeNavigator() {
   return (
-   
+
     <Stack.Navigator>
-      <Stack.Screen name={NAVIGATION.home} component={Home}  />
+      <Stack.Screen name={NAVIGATION.home} component={Home} />
+      <Stack.Screen name={NAVIGATION.postWithId} component={PostWithId} />
+      {/* <Stack.Screen name={NAVIGATION.forgotPassword} component={ForgotPassword} /> */}
     </Stack.Navigator>
 
   );

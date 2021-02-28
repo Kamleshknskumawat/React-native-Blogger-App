@@ -6,6 +6,7 @@ export const TYPES = {
   LOGIN_REQUEST: 'LOGIN_REQUEST',
   LOGIN_ERROR: 'LOGIN_ERROR',
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  LOGIN_FORGOT_PASSWORD:'LOGIN_FORGOT_PASSWORD'
 };
 
 const loginRequest = () => ({
@@ -28,13 +29,31 @@ const clearStore = () => ({
   payload: null,
 });
 
+
+const forgotPasswordSuccess = () => ({
+  type: TYPES.LOGIN_FORGOT_PASSWORD,
+  payload: null,
+});
 export const login = (username, password) => async dispatch => {
   dispatch(loginRequest());
   try {
     const user = await UserController.login(username, password);
+    console.log("user:"+user);
+    console.log(user);
     dispatch(loginSuccess(user));
   } catch (error) {
     dispatch(loginError(error.message));
+  }
+};
+
+export const forgotPassword = () => async dispatch => {
+  console.log("forgotPassword");
+  try {
+    console.log("UserController");
+    await UserController.forgotPassword();
+  } finally {
+    console.log("  dispatch(forgotPasswordSuccess())");
+    dispatch(forgotPasswordSuccess());
   }
 };
 

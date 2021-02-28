@@ -114,6 +114,7 @@ adb reverse tcp:8081 tcp:8081
 
 C:\Users\saurabhdr\AppData\Local\Android\sdk\emulator\emulator.exe -avd Pixel_2_API_28 -dns-server 8.8.8.8
 C:\Users\saurabhdr\AppData\Local\Android\sdk\emulator\emulator.exe -avd Pixel_2_XL_API_27 -dns-server 8.8.8.8
+cmd
 
 #PATH
 F:\expos\git\way2love\way2loveReactnative\android\app\build\outputs\apk\debug

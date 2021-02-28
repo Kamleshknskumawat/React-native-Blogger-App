@@ -18,6 +18,12 @@ class UserController {
       setTimeout(resolve, 500);
     });
   }
+
+  static async forgotPassword() {
+    return new Promise(resolve => {
+      setTimeout(resolve, 500);
+    });
+  }
 }
 
 export default UserController;
