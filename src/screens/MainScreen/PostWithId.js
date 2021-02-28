@@ -95,6 +95,11 @@ const PostWithId = ({ navigation }) => {
             actions={[
               { icon: 'plus', onPress: () => console.log('Pressed add') },
               {
+                icon: 'bookmark-check-outline',
+                label: 'Save as Bookmarks',
+                onPress: () => openInBrowser(),
+              },
+              {
                 icon: 'cellphone-link',
                 label: 'Open in Browser',
                 onPress: () => openInBrowser(),

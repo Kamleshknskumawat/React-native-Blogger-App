@@ -3,14 +3,14 @@ import {
     DrawerItem
 } from '@react-navigation/drawer';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View, StyleSheet, tatusBar, SafeAreaView, Share } from 'react-native';
 import {
     Avatar,
 
     Caption,
 
     Drawer, Paragraph,
-    ToggleButton ,
+    ToggleButton,
 
 
     Switch, Text, Title,
@@ -21,12 +21,34 @@ import {
     TouchableRipple, useTheme
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import api, { requestPages, requestPostBodyFalse, requestPostById, requestPostSeach, requestTitle,requestPageById } from '_bloggerapi/api';
+import api, { requestPages, requestPostBodyFalse, requestPostById, requestPostSeach, requestTitle, requestPageById } from '_bloggerapi/api';
 import { AuthContext } from './context';
 
 export function DrawerContent(props) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+
+    const onShare = async () => {
+        try {
+            const result = await Share.share({
+                message:
+                    'React Native Blogger API By Kumawat Team - ' + 'https://play.google.com/store/apps/details?id=com.way2love',
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+
+
+    };
 
     // useEffect(() => {
     //     requestTitle()
@@ -48,11 +70,11 @@ export function DrawerContent(props) {
     //         .catch((error) => console.error(error))
     //         .finally(() => setLoading(false));
 
-            // useEffect(() => {
-            //     requestPostSeach("Codeigniter")
-            //         .then((json) => setData(json))
-            //         .catch((error) => console.error(error))
-            //         .finally(() => setLoading(false));
+    // useEffect(() => {
+    //     requestPostSeach("Codeigniter")
+    //         .then((json) => setData(json))
+    //         .catch((error) => console.error(error))
+    //         .finally(() => setLoading(false));
 
 
     //         useEffect(() => {
@@ -61,9 +83,9 @@ export function DrawerContent(props) {
     //                 .catch((error) => console.error(error))
     //                 .finally(() => setLoading(false));
 
-                    
+
     // }, []);
-    
+
     console.log("--------------------");
     console.log(data);
     return (
@@ -152,6 +174,17 @@ export function DrawerContent(props) {
                             label="Support"
                             onPress={() => { props.navigation.navigate('SupportScreen') }}
                         />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="share-variant"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Share"
+                            onPress={() => { onShare() }}
+                        />
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
@@ -175,6 +208,7 @@ export function DrawerContent(props) {
 const styles = StyleSheet.create({
     drawerContent: {
         flex: 1,
+        backgroundColor: '#f4f4f4',
     },
     userInfoSection: {
         paddingLeft: 20,
@@ -183,10 +217,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 3,
         fontWeight: 'bold',
+        color: '#718093',
     },
     caption: {
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 14,
+        color: '#718093',
     },
     row: {
         marginTop: 20,

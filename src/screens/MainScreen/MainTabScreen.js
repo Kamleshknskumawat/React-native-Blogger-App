@@ -2,6 +2,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import BookmarkScreen from './BookmarkScreen';
 import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import HomeScreen from './HomeScreen';
@@ -91,6 +92,13 @@ const HomeStackScreen = ({ navigation }) => (
 
     <HomeStack.Screen name="PostWithId" component={PostWithId} options={{
       title: 'PostWithId',
+      headerLeft: () => (
+        <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
+      )
+    }} />
+
+<HomeStack.Screen name="BookmarkScreen" component={BookmarkScreen} options={{
+      title: 'BookmarkScreen',
       headerLeft: () => (
         <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
       )

@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true, 
+    /* Advanced Options */
+    "forceConsistentCasingInFileNames": true ,
     "paths": {
       "_*": ["src/*"],
     }

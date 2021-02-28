@@ -8,6 +8,7 @@ import api, { requestPages, requestPostBodyFalse, requestPostById, requestPostSe
 import PostBodyWithoutBody from './PostBodyWithoutBody';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 import OneSignal from 'react-native-onesignal';
+
 const HomeScreen = ({ navigation }) => {
   const contentWidth = useWindowDimensions().width;
   const { colors } = useTheme();

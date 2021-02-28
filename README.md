@@ -1,4 +1,12 @@
 React-Native-Template
+
+navigate example
+-> navigation.js
+-> HomeNavigator.js
+-> Now create file for nagitvator
+->  { props.navigation.navigate('BookmarkScreen') }} -> where you need and press
+-> MainTabScreen.js
+
 ================================================
 The goal of this project is to work as template for react-native applications, providing a base project structure, core dependencies and boilerplate to jumpstart development.
 
@@ -115,6 +123,18 @@ adb reverse tcp:8081 tcp:8081
 C:\Users\saurabhdr\AppData\Local\Android\sdk\emulator\emulator.exe -avd Pixel_2_API_28 -dns-server 8.8.8.8
 C:\Users\saurabhdr\AppData\Local\Android\sdk\emulator\emulator.exe -avd Pixel_2_XL_API_27 -dns-server 8.8.8.8
 cmd
+
+
+#Android Build command
+----------------------------
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
+cd android
+gradlew clean
+
+gradlew assembleDebug
+
+------------------------------------------------
 
 #PATH
 F:\expos\git\way2love\way2loveReactnative\android\app\build\outputs\apk\debug
