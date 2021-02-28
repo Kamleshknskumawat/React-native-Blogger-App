@@ -208,7 +208,6 @@ export function DrawerContent(props) {
 const styles = StyleSheet.create({
     drawerContent: {
         flex: 1,
-        backgroundColor: '#f4f4f4',
     },
     userInfoSection: {
         paddingLeft: 20,

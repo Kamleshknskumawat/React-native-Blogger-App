@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, StatusBar, SafeAreaView ,Alert } from 'react-native';
+import { View, StyleSheet, StatusBar, SafeAreaView, Alert } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { ScrollView, useWindowDimensions } from "react-native";
 import HTML from "react-native-render-html";
@@ -41,77 +41,77 @@ const HomeScreen = ({ navigation }) => {
 
     console.log("received");
     console.log(data);
-    if(data==undefined || data==''){
-      console.log("isempty");
-      console.log("Hello world");
-      requestPostBodyFalse(10)
-        .then((json) => setData(json.items))
-        .catch((error) => console.error(error))
-        .finally(() => setLoading(false),
-          data.map((data) => {
-            console.log(data.title);
-          }),
-          mydatta = data);
-          OneSignal.setAppId("9d6dd9ea-79f5-4353-b090-02429b4d1f82");
- OneSignal.setLogLevel(6, 0);
- OneSignal.setRequiresUserPrivacyConsent(false);
- OneSignal.promptForPushNotificationsWithUserResponse(response => {
-  console.log("Prompt response:", response);
- });
+    if (data == undefined || data == '') {
 
- /* O N E S I G N A L  H A N D L E R S */
- OneSignal.setNotificationWillShowInForegroundHandler(notifReceivedEvent => {
-     console.log("OneSignal: notification will show in foreground:", notifReceivedEvent);
-     let notif = notifReceivedEvent.getNotification();
-
-     const button1 = {
-         text: "Cancel",
-         onPress: () => { notifReceivedEvent.complete(); },
-         style: "cancel"
-     };
-
-     const button2 = { text: "Complete", onPress: () => { notifReceivedEvent.complete(notif); }};
-
-     Alert.alert("Complete notification?", "Test", [ button1, button2], { cancelable: true });
- });
- OneSignal.setNotificationOpenedHandler(notification => {
-     console.log("OneSignal: notification opened:", notification);
- });
- OneSignal.setInAppMessageClickHandler(event => {
-     console.log("OneSignal IAM clicked:", event);
- });
- OneSignal.addEmailSubscriptionObserver((event) => {
-     console.log("OneSignal: email subscription changed: ", event);
- });
- OneSignal.addSubscriptionObserver(event => {
-     console.log("OneSignal: subscription changed:", event);
-     this.setState({ isSubscribed: event.to.isSubscribed})
- });
- OneSignal.addPermissionObserver(event => {
-     console.log("OneSignal: permission changed:", event);
- });
-
- const deviceState =  OneSignal.getDeviceState();
-
- console.log("device token");
- console.log(deviceState);
-//  this.setState({
-//      isSubscribed : deviceState.isSubscribed
-//  });
- setSubscribed(deviceState.isSubscribed);
-    }else{
+    } else {
       console.log("not emptyu");
     }
 
 
 
-     });
+  });
 
   const getPost = () => {
 
 
- /* O N E S I G N A L   S E T U P */
- 
+    /* O N E S I G N A L   S E T U P */
+    console.log("isempty");
+    console.log("Hello world");
+    requestPostBodyFalse(10)
+      .then((json) => setData(json.items))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false),
+        data.map((data) => {
+          console.log(data.title);
+        }),
+        mydatta = data);
+    OneSignal.setAppId("9d6dd9ea-79f5-4353-b090-02429b4d1f82");
+    OneSignal.setLogLevel(6, 0);
+    OneSignal.setRequiresUserPrivacyConsent(false);
+    OneSignal.promptForPushNotificationsWithUserResponse(response => {
+      console.log("Prompt response:", response);
+    });
+
+    /* O N E S I G N A L  H A N D L E R S */
+    OneSignal.setNotificationWillShowInForegroundHandler(notifReceivedEvent => {
+      console.log("OneSignal: notification will show in foreground:", notifReceivedEvent);
+      let notif = notifReceivedEvent.getNotification();
+
+      const button1 = {
+        text: "Cancel",
+        onPress: () => { notifReceivedEvent.complete(); },
+        style: "cancel"
+      };
+
+      const button2 = { text: "Complete", onPress: () => { notifReceivedEvent.complete(notif); } };
+
+      Alert.alert("Complete notification?", "Test", [button1, button2], { cancelable: true });
+    });
+    OneSignal.setNotificationOpenedHandler(notification => {
+      console.log("OneSignal: notification opened:", notification);
+    });
+    OneSignal.setInAppMessageClickHandler(event => {
+      console.log("OneSignal IAM clicked:", event);
+    });
+    OneSignal.addEmailSubscriptionObserver((event) => {
+      console.log("OneSignal: email subscription changed: ", event);
+    });
+    OneSignal.addSubscriptionObserver(event => {
+      console.log("OneSignal: subscription changed:", event);
+      this.setState({ isSubscribed: event.to.isSubscribed })
+    });
+    OneSignal.addPermissionObserver(event => {
+      console.log("OneSignal: permission changed:", event);
+    });
+
+    const deviceState = OneSignal.getDeviceState();
+
+    console.log("device token");
+    console.log(deviceState);
+    //  this.setState({
+    //      isSubscribed : deviceState.isSubscribed
+    //  });
+    setSubscribed(deviceState.isSubscribed);
 
   }
   const lapsList = () => {

@@ -2,8 +2,10 @@
 import { View, Text, Button, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import RNUpiPayment from 'react-native-upi-payment';
-
+import {Input } from 'galio-framework';
 const BookmarkScreen = ({ navigation }) => {
+    const [UIP, setUPI] = useState('9662705684@ybl');
+    const [UIPAmount, setUPIAmount] = useState('1');
     const [state, setState] = useState({
         Status: "",
         txnId: "",
@@ -22,9 +24,9 @@ const BookmarkScreen = ({ navigation }) => {
         // }, paymentApp, successCallback, failureCallback);
 
         RNUpiPayment.initializePayment({
-            vpa: 'kumawatshailesh7@okaxis',  		//your upi address like 12345464896@okhdfcbank
+            vpa: UIP,  		//your upi address like 12345464896@okhdfcbank
             payeeName: 'testing',   			// payee name 
-            amount: '1',				//amount
+            amount: UIPAmount,				//amount
             transactionNote: 'Testing Upi',		//note of transaction
             transactionRef: 'aasf-332-aoei-fn'	//some refs to aknowledge the transaction
         }, ()=>{console.log('successCallback')}, ()=>{console.log('failureCallback')});
@@ -78,19 +80,30 @@ const BookmarkScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text>ExploreScreen</Text>
-            <Button
-                title="Click Here"
-                onPress={() => alert('Button Clicked!')}
-            />
+            <Input
+            placeholder="Please enter UPI ID"
+       
+            borderless
+            onChangeText={setUPI}
+            placeholderTextColor="#4F8EC9"
+            style={styles.input}
+            value={UIP}
+          />
+           <Input
+            placeholder="Please enter Amount"
+       
+            borderless
+            onChangeText={setUPIAmount}
+            placeholderTextColor="#4F8EC9"
+            style={styles.input}
+            value={UIPAmount}
+          />
             <Button
                 title="Google pay"
                 onPress={() => { floo(state.GOOGLE_PAY) }}
             />
 
-            <Button
-                title="Google pasy"
-                onPress={() => { floo(state.GOOGLE_PAY) }}
-            />
+           
         </View>
     );
 };
@@ -103,4 +116,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    input: {
+        marginTop: 5,
+        height: 40,
+
+
+      },
 });
