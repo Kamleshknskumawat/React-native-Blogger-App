@@ -21,15 +21,33 @@ import {
     TouchableRipple, useTheme
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import api, { requestPages, requestPostBodyFalse, requestPostById, requestPostSeach, requestTitle, requestPageById } from '_bloggerapi/api';
+import api, { requestGetUser } from '_bloggerapi/api';
 import { AuthContext } from './context';
-
+import MMKVStorage from "react-native-mmkv-storage";
 export function DrawerContent(props) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-
+    const MMKV = new MMKVStorage.Loader().initialize();
     const onShare = async () => {
         try {
+
+            const userInfo = await MMKV.getStringAsync("userInfo");
+            console.log(userInfo);
+            if (userInfo == 'undefined' || userInfo == "" || userInfo === null) {
+                console.log("inside");
+                requestGetUser()
+                    .then((json) => setData(json))
+                    .catch((error) => console.error(error))
+                    .finally(() => setLoading(false));
+                if (data.length > 0) {
+                    console.log(data);
+                    await MMKV.setStringAsync("userInfo", data);
+                }
+
+            }else{
+
+            }
+
             const result = await Share.share({
                 message:
                     'React Native Blogger API By Kumawat Team - ' + 'https://play.google.com/store/apps/details?id=com.way2love',
@@ -49,6 +67,7 @@ export function DrawerContent(props) {
 
 
     };
+
 
     // useEffect(() => {
     //     requestTitle()
@@ -85,9 +104,6 @@ export function DrawerContent(props) {
 
 
     // }, []);
-
-    console.log("--------------------");
-    console.log(data);
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
@@ -101,8 +117,8 @@ export function DrawerContent(props) {
                                 size={50}
                             />
                             <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                                <Title style={styles.title}>John Doe</Title>
-                                <Caption style={styles.caption}>@j_doe</Caption>
+                                <Title style={styles.title}>{data.length>0 ?data :"Kns"}</Title>
+                                <Caption style={styles.caption}>@{data.length>0 ?data :"Kns"}</Caption>
                             </View>
                         </View>
 
@@ -130,7 +146,7 @@ export function DrawerContent(props) {
                             label="Home"
                             onPress={() => { props.navigation.navigate('Home') }}
                         />
-                        <DrawerItem
+                        {/* <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
                                     name="account-outline"
@@ -140,7 +156,7 @@ export function DrawerContent(props) {
                             )}
                             label="Profile"
                             onPress={() => { props.navigation.navigate('Profile') }}
-                        />
+                        /> */}
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
@@ -152,7 +168,7 @@ export function DrawerContent(props) {
                             label="Bookmarks"
                             onPress={() => { props.navigation.navigate('BookmarkScreen') }}
                         />
-                        <DrawerItem
+                        {/* <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
                                     name="cog-outline"
@@ -162,7 +178,7 @@ export function DrawerContent(props) {
                             )}
                             label="Settings"
                             onPress={() => { props.navigation.navigate('SettingsScreen') }}
-                        />
+                        /> */}
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon

@@ -8,7 +8,7 @@ import api, { requestPages, requestPostBodyFalse, requestPostById, requestPostSe
 import PostBodyWithoutBody from './PostBodyWithoutBody';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 import OneSignal from 'react-native-onesignal';
-
+import Rate, { AndroidMarket } from 'react-native-rate'
 const HomeScreen = ({ navigation }) => {
   const contentWidth = useWindowDimensions().width;
   const { colors } = useTheme();
@@ -147,6 +147,24 @@ const HomeScreen = ({ navigation }) => {
 
 
           <Button success onPress={getPost}><Text> Go to details screen </Text></Button>
+          <Button onPress={() => {
+            const options = {
+              AppleAppID: "2193813192",
+              GooglePackageName: "com.way2love",
+              AmazonPackageName: "com.way2love",
+              OtherAndroidURL: "https://play.google.com/store/apps/details?id=com.way2love",
+              preferredAndroidMarket: AndroidMarket.Google,
+              preferInApp: false,
+              openAppStoreIfInAppFails: true,
+              fallbackPlatformURL: "https://way2love-15416.web.app/",
+            }
+            Rate.rate(options, success => {
+              if (success) {
+                Alert.alert("Thank You for Giving Me Your Valuable Time");
+              }
+            })
+          }} ><Text>Goto</Text></Button>
+
 
         </View>
         {lapsList()}
@@ -199,6 +217,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:"#b2bec3"
   },
 });
 

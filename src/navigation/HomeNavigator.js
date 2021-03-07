@@ -13,6 +13,7 @@ function HomeNavigator() {
       <Stack.Screen name={NAVIGATION.home} component={Home} />
       <Stack.Screen name={NAVIGATION.postWithId} component={PostWithId} />
       <Stack.Screen name={NAVIGATION.bookmarkScreen} component={BookmarkScreen} />
+      <Stack.Screen name={NAVIGATION.bookmarkScreen} component={BookmarkScreen} />
       {/* <Stack.Screen name={NAVIGATION.forgotPassword} component={ForgotPassword} /> */}
     </Stack.Navigator>
 
