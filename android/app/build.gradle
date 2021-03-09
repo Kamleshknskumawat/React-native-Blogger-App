@@ -211,6 +211,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
    implementation 'com.google.firebase:firebase-auth:19.3.1'
      implementation project(':react-native-share')
+      implementation project(':react-native-push-notification')
     implementation (project(":react-native-upi-payment")) {
         transitive = true
     }

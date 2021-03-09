@@ -9,6 +9,9 @@ import PostBodyWithoutBody from './PostBodyWithoutBody';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 import OneSignal from 'react-native-onesignal';
 import Rate, { AndroidMarket } from 'react-native-rate'
+import PushNotification from "react-native-push-notification";
+import MMKVStorage from "react-native-mmkv-storage";
+const MMKV = new MMKVStorage.Loader().initialize();
 const HomeScreen = ({ navigation }) => {
   const contentWidth = useWindowDimensions().width;
   const { colors } = useTheme();
@@ -50,6 +53,66 @@ const HomeScreen = ({ navigation }) => {
 
 
   });
+
+  const budgetCount = async () => {
+    console.log("budgetCount");
+    var budgeCount = await MMKV.getStringAsync("budgeCount");
+    console.log(budgeCount);
+    var budgeCounts;
+    if (budgeCount == 'undefined' || budgeCount == "" || budgeCount === null) {
+      var budgeCounts = 1;
+      await MMKV.setStringAsync("budgeCount", "1");
+    } else {
+      // var a = new Number(budgeCount)+1; 
+      // console.log(a instanceof Number);
+      // console.log(a);
+      await MMKV.setStringAsync("budgeCount", '1', (err, result) => {
+        console.log('I am logged In');
+      });
+    }
+
+    PushNotification.setApplicationIconBadgeNumber(parseInt(budgeCounts));
+  }
+
+  const getNotification = () => {
+
+    console.log("getNotification");
+
+
+    PushNotification.localNotification({
+      /* Android Only Properties */
+
+      title: "My Notification Title", // (optional)
+      message: "My Notification Message", // (required)
+    });
+    budgetCount();
+
+  }
+
+  const schedule = () => {
+    PushNotification.localNotificationSchedule({
+      //... You can use all the options from localNotifications
+      title: "My Notification Title",
+      message: "My Notification Message", // (required)
+      date: new Date(Date.now() + 10 * 1000), // in 60 secs
+      allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
+    });
+    // PushNotification.setApplicationIconBadgeNumber(1);
+
+    PushNotification.getApplicationIconBadgeNumber(function (count) {
+      console.log('get badge : ' + count);
+      count++;
+
+      push.setApplicationIconBadgeNumber(function () {
+        console.log('set badge : ' + count);
+      }, function () {
+        console.log('set badge error');
+      }, count);
+
+    }, function () {
+      console.log('get badge error');
+    });
+  }
 
   const getPost = () => {
 
@@ -98,7 +161,9 @@ const HomeScreen = ({ navigation }) => {
     });
     OneSignal.addSubscriptionObserver(event => {
       console.log("OneSignal: subscription changed:", event);
-      this.setState({ isSubscribed: event.to.isSubscribed })
+      //  this.setState({ isSubscribed: event.to.isSubscribed })
+
+      setData({ isSubscribed: event.to.isSubscribed });
     });
     OneSignal.addPermissionObserver(event => {
       console.log("OneSignal: permission changed:", event);
@@ -147,6 +212,8 @@ const HomeScreen = ({ navigation }) => {
 
 
           <Button success onPress={getPost}><Text> Go to details screen </Text></Button>
+          <Button success onPress={getNotification}><Text> Notification </Text></Button>
+          <Button success onPress={schedule}><Text> schedule </Text></Button>
           <Button onPress={() => {
             const options = {
               AppleAppID: "2193813192",
@@ -217,7 +284,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#b2bec3"
+    backgroundColor: "#b2bec3"
   },
 });
 

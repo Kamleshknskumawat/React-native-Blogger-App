@@ -122,6 +122,7 @@ adb reverse tcp:8081 tcp:8081
 
 C:\Users\saurabhdr\AppData\Local\Android\sdk\emulator\emulator.exe -avd Pixel_2_API_28 -dns-server 8.8.8.8
 C:\Users\saurabhdr\AppData\Local\Android\sdk\emulator\emulator.exe -avd Pixel_2_XL_API_27 -dns-server 8.8.8.8
+C:\Users\saurabhdr\AppData\Local\Android\sdk\emulator\emulator.exe -avd Pixel_4_API_30 -dns-server 8.8.8.8
 cmd
 
 
