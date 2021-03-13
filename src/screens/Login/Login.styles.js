@@ -32,16 +32,28 @@ const styles = StyleSheet.create({
 
     justifyContent: 'flex-end',
     marginTop: 10,
-    // padding:20
+    padding:20
   },
   input: {
     marginTop: 5,
-    height: 40
+    height: 50
   },
   submitButton: {
     marginTop: 20,
-    height: 55
+    height: 55,
+    flexDirection: 'row', 
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation:3,
+    width:"100%"
   },
+  textColor:{
+    color: '#718093',
+    fontSize: 20,
+    marginTop: 3,
+    fontWeight: 'bold',
+    paddingLeft:10
+  }
 });
 
 export default styles;

@@ -55,7 +55,7 @@ function Login() {
 
           <Input
             placeholder="Email Address"
-            placeholderTextColor="#dbdbdc"
+            placeholderTextColor="#718093"
             borderless
             onChangeText={setUsername}
             type="email-address"
@@ -65,8 +65,8 @@ function Login() {
           <Input
 
             password viewPass
-            placeholder="sssss"
-            placeholderTextColor="#dbdbdc"
+            placeholder="Password"
+            placeholderTextColor="#718093"
             borderless
             iconSize={25}
             style={styles.input}
@@ -76,7 +76,7 @@ function Login() {
           {/* <Text h5 onPress={() => navigation.navigate('forgotPassword', { screenName: "ForgotPassword" })} >Forgot Passwrd</Text> */}
      
          
-          <Text h5 onPress={() => navigation.navigate('ForgotPassword')} >Forgot Password</Text>
+          <Text onPress={() => navigation.navigate('ForgotPassword')} style={styles.textColor}>Forgot Password</Text>
           <Button radius={70} onPress={handleSubmit} size="large" color="success" style={styles.submitButton}>Login</Button>
 
         </View>

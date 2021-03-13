@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, StatusBar, SafeAreaView, Alert } from 'react-native';
+import { View, StyleSheet, StatusBar, SafeAreaView, Alert, FlatList, ActivityIndicator } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { ScrollView, useWindowDimensions } from "react-native";
 import HTML from "react-native-render-html";
@@ -11,45 +11,31 @@ import OneSignal from 'react-native-onesignal';
 import Rate, { AndroidMarket } from 'react-native-rate'
 import PushNotification from "react-native-push-notification";
 import MMKVStorage from "react-native-mmkv-storage";
+import InAppReview from 'react-native-in-app-review';
 const MMKV = new MMKVStorage.Loader().initialize();
+InAppReview.isAvailable();
 const HomeScreen = ({ navigation }) => {
   const contentWidth = useWindowDimensions().width;
   const { colors } = useTheme();
   const [isLoading, setLoading] = useState(true);
+  const [isEndLoading, setIsEndLoading] = useState(false);
+
   const [data, setData] = useState([]);
   const [subscribed, setSubscribed] = useState();
-  const [isSubscribed, setTodos] = useState([
-    {
-      id: 1,
-      title: 'This is first list'
-    },
-    {
-      id: 2,
-      title: 'This is second list'
-    },
-    {
-      id: 3,
-      title: 'This is third list'
-    },
-  ]);
-  const [todoss, setTodoss] = useState(
-    {
-      id: 1,
-      title: 'This is first list'
-    }
-  );
+  const [pages, setPages] = useState(10);
   let mydatta = [];
   const theme = useTheme();
   useEffect(() => {
-
+    setIsEndLoading(true)
     console.log("received");
     console.log(data);
     if (data == undefined || data == '') {
+      getPost();
+
 
     } else {
       console.log("not emptyu");
     }
-
 
 
   });
@@ -88,7 +74,49 @@ const HomeScreen = ({ navigation }) => {
     budgetCount();
 
   }
+  const ratting = () => {
+    console.log("Hello world");
+    InAppReview.RequestInAppReview()
+      .then((hasFlowFinishedSuccessfully) => {
+        // when return true in android it means user finished or close review flow
+        console.log('InAppReview in android', hasFlowFinishedSuccessfully);
 
+        // when return true in ios it means review flow lanuched to user.
+        console.log(
+          'InAppReview in ios has lanuched successfully',
+          hasFlowFinishedSuccessfully,
+        );
+
+        // 1- you have option to do something ex: (navigate Home page) (in android).
+        // 2- you have option to do something,
+        // ex: (save date today to lanuch InAppReview after 15 days) (in android and ios).
+
+        // 3- another option:
+        if (hasFlowFinishedSuccessfully) {
+          // do something for ios
+          // do something for android
+        }
+
+        // for android:
+        // The flow has finished. The API does not indicate whether the user
+        // reviewed or not, or even whether the review dialog was shown. Thus, no
+        // matter the result, we continue our app flow.
+
+        // for ios
+        // the flow lanuched successfully, The API does not indicate whether the user
+        // reviewed or not, or he/she closed flow yet as android, Thus, no
+        // matter the result, we continue our app flow.
+      })
+      .catch((error) => {
+        //we continue our app flow.
+        // we have some error could happen while lanuching InAppReview,
+        // Check table for errors and code number that can return in catch.
+        console.log(error);
+      });
+
+
+
+  }
   const schedule = () => {
     PushNotification.localNotificationSchedule({
       //... You can use all the options from localNotifications
@@ -114,20 +142,32 @@ const HomeScreen = ({ navigation }) => {
     });
   }
 
-  const getPost = () => {
 
-
-    /* O N E S I G N A L   S E T U P */
-    console.log("isempty");
-    console.log("Hello world");
-    requestPostBodyFalse(10)
+  const listOfPost = (val) => {
+    requestPostBodyFalse(val)
       .then((json) => setData(json.items))
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false),
+      .finally(() => setIsEndLoading(false),
         data.map((data) => {
           console.log(data.title);
         }),
         mydatta = data);
+  }
+
+  const getPost = () => {
+
+    requestPostBodyFalse(pages)
+      .then((json) => setData(json.items))
+      .catch((error) => console.error(error))
+      .finally(() => setIsEndLoading(false),
+        data.map((data) => {
+          console.log(data.title);
+        }),
+        mydatta = data);
+    /* O N E S I G N A L   S E T U P */
+    console.log("isempty");
+    console.log("Hello world");
+
     OneSignal.setAppId("9d6dd9ea-79f5-4353-b090-02429b4d1f82");
     OneSignal.setLogLevel(6, 0);
     OneSignal.setRequiresUserPrivacyConsent(false);
@@ -163,7 +203,7 @@ const HomeScreen = ({ navigation }) => {
       console.log("OneSignal: subscription changed:", event);
       //  this.setState({ isSubscribed: event.to.isSubscribed })
 
-      setData({ isSubscribed: event.to.isSubscribed });
+      setSubscribed(event.to.isSubscribed);
     });
     OneSignal.addPermissionObserver(event => {
       console.log("OneSignal: permission changed:", event);
@@ -176,7 +216,7 @@ const HomeScreen = ({ navigation }) => {
     //  this.setState({
     //      isSubscribed : deviceState.isSubscribed
     //  });
-    setSubscribed(deviceState.isSubscribed);
+    setSubscribed(deviceState.subscribed);
 
   }
   const lapsList = () => {
@@ -199,21 +239,85 @@ const HomeScreen = ({ navigation }) => {
     //   // <PostBodyWithoutBody></PostBodyWithoutBody>
     // });
   }
+
+  const listss = (data) => {
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    console.log(data.item);
+
+    return (
+
+      // <ScrollView style={{ flex: 1 }}>
+      //   <HTML source={{ html: data }} contentWidth={contentWidth} />
+      // </ScrollView>
+      //  <View><Text>{data.title}</Text></View>
+      // <PostBodyWithoutBody></PostBodyWithoutBody>
+      <PostBodyWithoutBody data={data.item}></PostBodyWithoutBody>
+    )
+
+    // return todos.map((data) => {
+    //   <View><Text>{data.title}</Text></View>
+
+    //   console.log(data.title);
+    //   // <PostBodyWithoutBody></PostBodyWithoutBody>
+    // });
+  }
   const customTheme = {
     SIZES: { BASE: 18, },
     // this will overwrite the Galio SIZES BASE value 16
     COLORS: { PRIMARY: 'red', }
     // this will overwrite the Galio COLORS PRIMARY color #B23AFC
   };
+  const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'First Item',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      title: 'Second Item',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      title: 'Third Item',
+    },
+  ];
+  const Item = ({ title }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  );
+  const renderItem = ({ item }) => (
+    <Item title={item.title} />
+  );
+  const handleLoadMore = () => {
+    console.log("handleLoadMore {} called");
+    console.log("current pages "+pages);
+    setPages(pages + 10);
+    console.log("current new pages "+pages);
+    setIsEndLoading(true);
+    listOfPost(pages)
+
+  }
+  const renderFooter = () => {
+    return (
+      isEndLoading ?
+        <View style={styles.loader}>
+          <ActivityIndicator size="large" color="#00ff00" />
+        </View> : null
+    );
+  }
   return (
+
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
 
-
+          {/* 
           <Button success onPress={getPost}><Text> Go to details screen </Text></Button>
           <Button success onPress={getNotification}><Text> Notification </Text></Button>
-          <Button success onPress={schedule}><Text> schedule </Text></Button>
+          <Button success onPress={schedule}><Text> schedule </Text></Button> */}
+
+          <Button success onPress={ratting}><Text> Press </Text></Button>
           <Button onPress={() => {
             const options = {
               AppleAppID: "2193813192",
@@ -231,10 +335,23 @@ const HomeScreen = ({ navigation }) => {
               }
             })
           }} ><Text>Goto</Text></Button>
-
-
         </View>
-        {lapsList()}
+        {/* {lapsList()} */}
+
+        {/* <FlatList
+        data={DATA}
+        renderItem={renderItem}
+      /> */}
+
+        <FlatList style={{ flex: 1 }}
+          data={data}
+          renderItem={listss}
+          keyExtractor={(item, index) => index.toString()}
+          ListFooterComponent={renderFooter}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0}
+        />
+        <ActivityIndicator size="large" />
       </ScrollView>
     </SafeAreaView>
     // <PostBodyWithoutBody data={todoss}></PostBodyWithoutBody>
@@ -274,7 +391,7 @@ const HomeScreen = ({ navigation }) => {
     //     title="Go to details screen"
     //     onPress={getPost}
     //   /> */}
-    //   <Button success  onPress={getPost}><Text> Go to details screen </Text></Button>
+    //   <Button success onPress={getPost}><Text> Go to details screen </Text></Button>
     // </Container>
   );
 };
@@ -286,6 +403,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#b2bec3"
   },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
+  },
+  loader: {
+    marginTop: 10,
+    alignItems: 'center'
+  }
 });
 
 

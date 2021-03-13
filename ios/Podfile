@@ -10,6 +10,8 @@ target 'MyKiranaBook' do
 
   pod 'RNShare', :path => '../node_modules/react-native-share'
 
+  pod 'react-native-in-app-review', :path => '../node_modules/react-native-in-app-review'
+
   target 'MyKiranaBookTests' do
     inherit! :complete
     # Pods for testing

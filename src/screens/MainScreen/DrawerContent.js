@@ -6,27 +6,26 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, tatusBar, SafeAreaView, Share } from 'react-native';
 import {
     Avatar,
-
     Caption,
-
     Drawer, Paragraph,
     ToggleButton,
-
-
     Switch, Text, Title,
-
-
-
     TouchableRipple, useTheme
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import api, { requestGetUser } from '_bloggerapi/api';
+import { logout } from '_actions/UserActions';
 import { AuthContext } from './context';
 import MMKVStorage from "react-native-mmkv-storage";
+import { useDispatch } from 'react-redux';
 export function DrawerContent(props) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const MMKV = new MMKVStorage.Loader().initialize();
+    const dispatch = useDispatch();
+    const signOut = () => {
+        dispatch(logout());
+      };
     const onShare = async () => {
         try {
 

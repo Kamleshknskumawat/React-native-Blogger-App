@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.ibits.react_native_in_app_review.AppReviewPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import cl.json.RNSharePackage;
 import cl.json.RNSharePackage;
