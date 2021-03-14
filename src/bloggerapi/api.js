@@ -33,6 +33,18 @@ export const requestPostBodyFalse = async (MAX_RESULTS) => {
     }
 }
 
+export const requestPostBodyFalseNextPage = async (MAX_RESULTS, nextPage) => {
+    try {
+        console.log(url.LIST_POST_BODY_FALSE + MAX_RESULTS);
+        let response = await fetch(url.LIST_POST_BODY_FALSE + MAX_RESULTS + "&pageToken=" + nextPage);
+        let json = await response.json();
+        console.log(json);
+        return json;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export const requestPostBodyTrue = async (MAX_RESULTS) => {
     try {
         let response = await fetch(url.LIST_POST_BODY_TRUE + MAX_RESULTS);
@@ -82,14 +94,14 @@ export const requestPostSeach = async (q) => {
     }
 }
 export const requestGetUser = async () => {
-        try {
-            // let postUrl = url.GET_USER;
-            // console.log(postUrl);
-            // let response = await fetch(postUrl);
-            // let json = await response.json();
-            // console.log(json);
-            return url.GET_USER;
-        } catch (error) {
-            console.error(error);
-        }
+    try {
+        // let postUrl = url.GET_USER;
+        // console.log(postUrl);
+        // let response = await fetch(postUrl);
+        // let json = await response.json();
+        // console.log(json);
+        return url.GET_USER;
+    } catch (error) {
+        console.error(error);
     }
+}

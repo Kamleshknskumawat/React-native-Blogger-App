@@ -11,7 +11,7 @@ export default function PostBodyWithoutBody(props) {
     const contentWidth = useWindowDimensions().width;
     const navigation = useNavigation();
     const tagSearch = (arg) => {
-        console.log("tagSearch : " + arg);
+        //console.log("tagSearch : " + arg);
     }
     share = () => {
         console.log("Whatapp Share");

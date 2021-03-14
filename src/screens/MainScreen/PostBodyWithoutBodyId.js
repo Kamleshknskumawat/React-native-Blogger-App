@@ -64,7 +64,7 @@ export default function PostBodyWithoutBodyId(props) {
             <ScrollView>
                 <View style={styles.container}>
 
-                    <ScrollView style={{ backgroundColor: "#636e72" , color: 'red' }}>
+                    <ScrollView style={{ backgroundColor: "#FFFFFF" , color: 'red',borderRadius: 10, fontSize: 44 }}>
                         <HTML source={{ html: props.data.content !== undefined ? `${props.data.content}` : props.data.title }} style={{ backgroundColor: "black" , color: 'red' }} contentWidth={contentWidth} />
                     </ScrollView>
                 </View>

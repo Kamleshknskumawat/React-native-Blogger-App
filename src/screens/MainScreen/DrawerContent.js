@@ -25,7 +25,7 @@ export function DrawerContent(props) {
     const dispatch = useDispatch();
     const signOut = () => {
         dispatch(logout());
-      };
+    };
     const onShare = async () => {
         try {
 
@@ -42,7 +42,7 @@ export function DrawerContent(props) {
                     await MMKV.setStringAsync("userInfo", data);
                 }
 
-            }else{
+            } else {
 
             }
 
@@ -115,8 +115,8 @@ export function DrawerContent(props) {
                                 size={50}
                             />
                             <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                                <Title style={styles.title}>{data.length>0 ?data :"Kns"}</Title>
-                                <Caption style={styles.caption}>@{data.length>0 ?data :"Kns"}</Caption>
+                                <Title style={styles.title}>{data.length > 0 ? data : "Kns"}</Title>
+                                <Caption style={styles.caption}>@{data.length > 0 ? data : "Kns"}</Caption>
                             </View>
                         </View>
 
@@ -191,14 +191,48 @@ export function DrawerContent(props) {
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
+                                    name="google-maps"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Contact Us"
+                            onPress={() => { props.navigation.navigate('SupportScreen') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="message-alert-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Feedback"
+                            onPress={() => { props.navigation.navigate('SupportScreen') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
                                     name="share-variant"
                                     color={color}
                                     size={size}
                                 />
                             )}
-                            label="Share"
+                            label="Share Us"
                             onPress={() => { onShare() }}
                         />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="star"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Ratting us"
+                            onPress={() => { props.navigation.navigate('SupportScreen') }}
+                        />
+
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>

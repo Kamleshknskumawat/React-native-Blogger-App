@@ -49,6 +49,7 @@ const PostWithId = ({ navigation }) => {
 
   const onShare = async () => {
     try {
+      console.log(data);
       const result = await Share.share({
         message:
           'React Native Blogger API By Kumawat Team :- :::' + data.title + "::: " + data.url,

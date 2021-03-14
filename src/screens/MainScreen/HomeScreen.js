@@ -4,9 +4,10 @@ import { useTheme } from '@react-navigation/native';
 import { ScrollView, useWindowDimensions } from "react-native";
 import HTML from "react-native-render-html";
 import { Image } from 'react-native';
-import api, { requestPages, requestPostBodyFalse, requestPostById, requestPostSeach, requestTitle, requestPageById, requestPostBodyTrue } from '_bloggerapi/api';
+import api, { requestPages, requestPostBodyFalse, requestPostById, requestPostSeach, requestTitle, requestPageById, requestPostBodyTrue, requestPostBodyFalseNextPage } from '_bloggerapi/api';
 import PostBodyWithoutBody from './PostBodyWithoutBody';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Toast } from 'native-base';
+
 import OneSignal from 'react-native-onesignal';
 import Rate, { AndroidMarket } from 'react-native-rate'
 import PushNotification from "react-native-push-notification";
@@ -19,8 +20,10 @@ const HomeScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const [isLoading, setLoading] = useState(true);
   const [isEndLoading, setIsEndLoading] = useState(false);
-
+  const [isShow, setShow] = useState(false);
+  const [datas, setDatas] = useState();
   const [data, setData] = useState([]);
+  const [nextPage, setNextPage] = useState();
   const [subscribed, setSubscribed] = useState();
   const [pages, setPages] = useState(10);
   let mydatta = [];
@@ -37,6 +40,16 @@ const HomeScreen = ({ navigation }) => {
       console.log("not emptyu");
     }
 
+    setIsEndLoading(true)
+    console.log("received");
+    console.log(datas);
+    if (datas == undefined || datas == '') {
+      getData();
+
+
+    } else {
+      console.log("not emptyu");
+    }
 
   });
 
@@ -143,9 +156,9 @@ const HomeScreen = ({ navigation }) => {
   }
 
 
-  const listOfPost = (val) => {
-    requestPostBodyFalse(val)
-      .then((json) => setData(json.items))
+  const listOfPost = (val, nextPage) => {
+    requestPostBodyFalseNextPage(val, nextPage)
+      .then((json) => { setData(data.concat(json.items)); setNextPage(json.nextPageToken) })
       .catch((error) => console.error(error))
       .finally(() => setIsEndLoading(false),
         data.map((data) => {
@@ -157,13 +170,16 @@ const HomeScreen = ({ navigation }) => {
   const getPost = () => {
 
     requestPostBodyFalse(pages)
-      .then((json) => setData(json.items))
+      .then((json) => { setData(json.items); setNextPage(json.nextPageToken) })
       .catch((error) => console.error(error))
       .finally(() => setIsEndLoading(false),
         data.map((data) => {
-          console.log(data.title);
+          console.log(data);
         }),
         mydatta = data);
+
+
+
     /* O N E S I G N A L   S E T U P */
     console.log("isempty");
     console.log("Hello world");
@@ -219,6 +235,13 @@ const HomeScreen = ({ navigation }) => {
     setSubscribed(deviceState.subscribed);
 
   }
+  getData = async () => {
+    const apiURL = "https://jsonplaceholder.typicode.com/photos?limit=10&_page=1";
+
+    fetch(apiURL).then((res) => res.json()).then((resJson) => {
+      setDatas(resJson);
+    })
+  }
   const lapsList = () => {
 
     return data.map((data) => {
@@ -241,9 +264,6 @@ const HomeScreen = ({ navigation }) => {
   }
 
   const listss = (data) => {
-    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    console.log(data.item);
-
     return (
 
       // <ScrollView style={{ flex: 1 }}>
@@ -260,6 +280,14 @@ const HomeScreen = ({ navigation }) => {
     //   console.log(data.title);
     //   // <PostBodyWithoutBody></PostBodyWithoutBody>
     // });
+  }
+  const mylistss = ({ item }) => {
+    return (
+      <View style={styles.itemRow}>
+        <Image source={{ uri: item.url }} style={styles.itemImage} />
+        <Text Style={styles.itemText}>{item.title}</Text>
+      </View>
+    )
   }
   const customTheme = {
     SIZES: { BASE: 18, },
@@ -290,12 +318,25 @@ const HomeScreen = ({ navigation }) => {
     <Item title={item.title} />
   );
   const handleLoadMore = () => {
+    console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+    console.log(nextPage);
+    console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
     console.log("handleLoadMore {} called");
-    console.log("current pages "+pages);
-    setPages(pages + 10);
-    console.log("current new pages "+pages);
-    setIsEndLoading(true);
-    listOfPost(pages)
+    console.log("current pages " + pages);
+
+    if (nextPage == undefined || nextPage == '') {
+      Toast.show({
+        text: 'No more post...'
+      })
+    } else {
+      Toast.show({
+        text: 'Please take breath...'
+      })
+      console.log("current new pages " + pages);
+      setIsEndLoading(true);
+      listOfPost(pages, nextPage)
+    }
+    // setPages(pages + 10);
 
   }
   const renderFooter = () => {
@@ -309,50 +350,83 @@ const HomeScreen = ({ navigation }) => {
   return (
 
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.container}>
 
-          {/* 
+      <View style={styles.container}>
+
+        {/* 
           <Button success onPress={getPost}><Text> Go to details screen </Text></Button>
           <Button success onPress={getNotification}><Text> Notification </Text></Button>
           <Button success onPress={schedule}><Text> schedule </Text></Button> */}
 
-          <Button success onPress={ratting}><Text> Press </Text></Button>
-          <Button onPress={() => {
-            const options = {
-              AppleAppID: "2193813192",
-              GooglePackageName: "com.way2love",
-              AmazonPackageName: "com.way2love",
-              OtherAndroidURL: "https://play.google.com/store/apps/details?id=com.way2love",
-              preferredAndroidMarket: AndroidMarket.Google,
-              preferInApp: false,
-              openAppStoreIfInAppFails: true,
-              fallbackPlatformURL: "https://way2love-15416.web.app/",
-            }
-            Rate.rate(options, success => {
-              if (success) {
-                Alert.alert("Thank You for Giving Me Your Valuable Time");
-              }
-            })
-          }} ><Text>Goto</Text></Button>
-        </View>
-        {/* {lapsList()} */}
 
-        {/* <FlatList
+        {/* <Button success onPress={handleLoadMore}><Text> Press </Text></Button> */}
+        <Button onPress={() => {
+          const options = {
+            AppleAppID: "2193813192",
+            GooglePackageName: "com.way2love",
+            AmazonPackageName: "com.way2love",
+            OtherAndroidURL: "https://play.google.com/store/apps/details?id=com.way2love",
+            preferredAndroidMarket: AndroidMarket.Google,
+            preferInApp: false,
+            openAppStoreIfInAppFails: true,
+            fallbackPlatformURL: "https://way2love-15416.web.app/",
+          }
+          Rate.rate(options, success => {
+            if (success) {
+              Alert.alert("Thank You for Giving Me Your Valuable Time");
+            }
+          })
+        }} ><Text>Goto</Text></Button>
+      </View>
+      {/* {lapsList()} */}
+
+      {/* <FlatList
         data={DATA}
         renderItem={renderItem}
-      /> */}
+        onEndReached={handleLoadMore}
+     /> */}
 
-        <FlatList style={{ flex: 1 }}
-          data={data}
-          renderItem={listss}
-          keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={renderFooter}
+      {/* <FlatList 
+            data={data}
+            renderItem={listss}
+            // keyExtractor={(item, index) => index.toString()}
+            onEndReachedThreshold={0.01}
+            ListFooterComponent={renderFooter}
+            onEndReached={handleLoadMore}
+            onEndReachedThreshold={0.1}
+          /> */}
+      <FlatList
+        data={data}
+        renderItem={listss}
+        keyExtractor={(item, index) => index.toString()}
+        onEndReachedThreshold={0.01}
+        ListFooterComponent={renderFooter}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.1}
+      />
+
+      {/* 
+          <FlatList
+            data={datas}
+            renderItem={mylistss}
+            keyExtractor={(item, index) => index.toString()}
+            onEndReachedThreshold={0.01}
+            ListFooterComponent={renderFooter}
+            onEndReached={handleLoadMore}
+            onEndReachedThreshold={0.1}
+          /> */}
+
+      {/* 
+        <FlatList
+          ref={flatListRef}
+          refreshing={refresh}
+          data={clientData}
+          renderItem={renderRow}
           onEndReached={handleLoadMore}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0.1}
+          onRefresh={() => onRefresh()}
         />
-        <ActivityIndicator size="large" />
-      </ScrollView>
+        <ActivityIndicator size="large" /> */}
     </SafeAreaView>
     // <PostBodyWithoutBody data={todoss}></PostBodyWithoutBody>
 
@@ -411,6 +485,20 @@ const styles = StyleSheet.create({
   loader: {
     marginTop: 10,
     alignItems: 'center'
+  },
+  itemRow: {
+    borderBottomColor: '#ccc',
+    marginBottom: 10,
+    borderBottomWidth: 1
+  },
+  itemImage: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover'
+  },
+  itemText: {
+    fontSize: 16,
+    padding: 5
   }
 });
 
