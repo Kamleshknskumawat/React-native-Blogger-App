@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BookmarkScreen from './BookmarkScreen';
+import ContactUsScreen from './ContactUsScreen';
 import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import HomeScreen from './HomeScreen';
@@ -66,7 +67,7 @@ const MainTabScreen = () => (
         tabBarLabel: 'Feedback',
         tabBarColor: '#694fad',
         tabBarIcon: ({ color }) => (
-          <Icon name="ios-person" color={color} size={26} />
+          <Icon name="ios-information-circle-outline" color={color} size={26} />
         ),
       }}
     />
@@ -100,16 +101,13 @@ const HomeStackScreen = ({ navigation }) => (
     }} />
 
     <HomeStack.Screen name="BookmarkScreen" component={BookmarkScreen} options={{
-      title: 'BookmarkScreen',
-      headerLeft: () => (
-        <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
-      )
+      title: 'Bookmark'
+    }} />
+    <HomeStack.Screen name="ContactUsScreen" component={ContactUsScreen} options={{
+      title: 'Contact Us'
     }} />
     <HomeStack.Screen name="SupportScreen" component={SupportScreen} options={{
-      title: 'Support Us',
-      headerLeft: () => (
-        <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
-      )
+      title: 'Support Us'
     }} />
   </HomeStack.Navigator>
 

@@ -3,7 +3,8 @@ import {
     DrawerItem
 } from '@react-navigation/drawer';
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, tatusBar, SafeAreaView, Share } from 'react-native';
+import { View, StyleSheet, tatusBar, SafeAreaView, Share, Alert } from 'react-native';
+
 import {
     Avatar,
     Caption,
@@ -18,6 +19,8 @@ import { logout } from '_actions/UserActions';
 import { AuthContext } from './context';
 import MMKVStorage from "react-native-mmkv-storage";
 import { useDispatch } from 'react-redux';
+import { rattingLink,rattingUs } from '_utils/bloggerUtils';
+
 export function DrawerContent(props) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -65,7 +68,10 @@ export function DrawerContent(props) {
 
 
     };
-
+    const ratting = () => {
+        rattingLink();
+        rattingUs();
+    }
 
     // useEffect(() => {
     //     requestTitle()
@@ -197,9 +203,9 @@ export function DrawerContent(props) {
                                 />
                             )}
                             label="Contact Us"
-                            onPress={() => { props.navigation.navigate('SupportScreen') }}
+                            onPress={() => { props.navigation.navigate('ContactUsScreen') }}
                         />
-                        <DrawerItem
+                        {/* <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
                                     name="message-alert-outline"
@@ -209,7 +215,7 @@ export function DrawerContent(props) {
                             )}
                             label="Feedback"
                             onPress={() => { props.navigation.navigate('SupportScreen') }}
-                        />
+                        /> */}
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
@@ -230,7 +236,7 @@ export function DrawerContent(props) {
                                 />
                             )}
                             label="Ratting us"
-                            onPress={() => { props.navigation.navigate('SupportScreen') }}
+                            onPress={ratting}
                         />
 
                     </Drawer.Section>

@@ -7,14 +7,18 @@ const styles = StyleSheet.create({
     // marginBottom: 36,
     // padding:20
   },
-  text:{
+  text: {
     textAlign: 'center' // Centered horizontally
 
+  },
+  terms: {
+    marginTop: 15,
+    paddingLeft:5
   },
   formContainer: {
     justifyContent: 'center',
     alignItems: 'flex-start',
-    
+
     borderRadius: 5,
     padding: 20,
     width: '100%',
@@ -32,27 +36,29 @@ const styles = StyleSheet.create({
 
     justifyContent: 'flex-end',
     marginTop: 10,
-    padding:20
+    padding: 20
   },
   input: {
     marginTop: 5,
-    height: 50
+    height: 50,
+
+
   },
   submitButton: {
     marginTop: 20,
     height: 55,
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    elevation:3,
-    width:"100%"
+    elevation: 3,
+    width: "100%"
   },
-  textColor:{
+  textColor: {
     color: '#718093',
     fontSize: 20,
     marginTop: 3,
     fontWeight: 'bold',
-    paddingLeft:10
+    paddingLeft: 10
   }
 });
 

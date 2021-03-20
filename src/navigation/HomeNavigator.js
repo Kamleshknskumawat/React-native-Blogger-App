@@ -3,6 +3,7 @@ import React from 'react';
 import { NAVIGATION } from '_constants';
 import { ForgotPassword, Home } from '_screens'
 import BookmarkScreen from '_screens/MainScreen/BookmarkScreen';
+import ContactUsScreen from '_screens/MainScreen/ContactUsScreen';
 import PostWithId from '_screens/MainScreen/PostWithId';
 
 const Stack = createStackNavigator();
@@ -13,7 +14,7 @@ function HomeNavigator() {
       <Stack.Screen name={NAVIGATION.home} component={Home} />
       <Stack.Screen name={NAVIGATION.postWithId} component={PostWithId} />
       <Stack.Screen name={NAVIGATION.bookmarkScreen} component={BookmarkScreen} />
-      <Stack.Screen name={NAVIGATION.bookmarkScreen} component={BookmarkScreen} />
+      <Stack.Screen name={NAVIGATION.contactUsScreen} component={ContactUsScreen} />
       {/* <Stack.Screen name={NAVIGATION.forgotPassword} component={ForgotPassword} /> */}
     </Stack.Navigator>
 

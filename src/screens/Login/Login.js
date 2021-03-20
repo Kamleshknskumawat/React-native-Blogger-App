@@ -2,9 +2,9 @@ import { useTheme } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { login, TYPES,forgotPassword } from '_actions/UserActions';
+import { login, TYPES, forgotPassword } from '_actions/UserActions';
 import { ErrorView, TextField } from '_components';
-import { Block, Text, Button, Card, Icon, Input, NavBar } from 'galio-framework';
+import { Block, Text, Button, Card, Icon, Input, NavBar, Checkbox } from 'galio-framework';
 import { SafeAreaView, ScrollView } from 'react-native';
 import strings from '_localization';
 import styles from '_screens/Login/Login.styles';
@@ -19,12 +19,13 @@ function Login() {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
+  const [disabled, setDisabled] = useState(true);
   const [password, setPassword] = useState('');
 
   const isLoading = useSelector(state =>
     isLoadingSelector([TYPES.LOGIN], state)
   );
- 
+
 
   const errors = useSelector(
     state => errorsSelector([TYPES.LOGIN], state),
@@ -32,13 +33,22 @@ function Login() {
   );
 
   const handleSubmit = () => {
+console.log(disabled);
+console.log(username);
+
+setPassword(username);
+console.log(password);
+    if (disabled) {
+      alert('Please Agree to Terms and Conditions');
+    }
+    
     dispatch(login(username, password));
   };
   const forgotScreen = () => {
     alert("hello world");
 
-   // dispatch(forgotPassword())
- //  navigation.dispatch()
+    // dispatch(forgotPassword())
+    //  navigation.dispatch()
   }
   const navigation = useNavigation();
   return (
@@ -47,22 +57,23 @@ function Login() {
         <View style={styles.blocks}>
           <Text h2 style={styles.text}>MyKiranaBook</Text>
           <Image
-            source={{ uri: "https://assets-ouch.icons8.com/free-download/435/44bd29b6-dec5-4fbb-84a4-83f2cf625cf2.png?filename=clip-1061.png" }}
-            style={{ width: 400, height: 300 }}
+            source={{ uri: "https://assets-ouch.icons8.com/download/425/f13fc91b-d8fc-4805-aa10-27dd1870c0c1.png" }}
+            style={{ width: 350, height: 300 }}
           />
         </View>
         <View style={styles.container}>
 
           <Input
-            placeholder="Email Address"
+            placeholder="Please Enter Your Name"
             placeholderTextColor="#718093"
             borderless
             onChangeText={setUsername}
+            onChange={setPassword}
             type="email-address"
             style={styles.input}
             value={username}
           />
-          <Input
+          {/* <Input
 
             password viewPass
             placeholder="Password"
@@ -72,13 +83,10 @@ function Login() {
             style={styles.input}
             onChangeText={setPassword}
             value={password}
-          />
+          /> */}
           {/* <Text h5 onPress={() => navigation.navigate('forgotPassword', { screenName: "ForgotPassword" })} >Forgot Passwrd</Text> */}
-     
-         
-          <Text onPress={() => navigation.navigate('ForgotPassword')} style={styles.textColor}>Forgot Password</Text>
-          <Button radius={70} onPress={handleSubmit} size="large" color="success" style={styles.submitButton}>Login</Button>
-
+          <Checkbox color="warning" onChange={() => setDisabled(!disabled)} initialValue={!disabled} label="Agree to Terms and Conditions" labelStyle={{ color: '#FF9C09' }} iconFamily="font-awesome" style={styles.terms}/>
+          <Button radius={70} onPress={handleSubmit} size="large" color="success" disabled={disabled} style={styles.submitButton}>Login</Button>
         </View>
       </ScrollView>
     </SafeAreaView>

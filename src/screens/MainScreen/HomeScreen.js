@@ -351,50 +351,6 @@ const HomeScreen = ({ navigation }) => {
 
     <SafeAreaView style={styles.container}>
 
-      <View style={styles.container}>
-
-        {/* 
-          <Button success onPress={getPost}><Text> Go to details screen </Text></Button>
-          <Button success onPress={getNotification}><Text> Notification </Text></Button>
-          <Button success onPress={schedule}><Text> schedule </Text></Button> */}
-
-
-        {/* <Button success onPress={handleLoadMore}><Text> Press </Text></Button> */}
-        <Button onPress={() => {
-          const options = {
-            AppleAppID: "2193813192",
-            GooglePackageName: "com.way2love",
-            AmazonPackageName: "com.way2love",
-            OtherAndroidURL: "https://play.google.com/store/apps/details?id=com.way2love",
-            preferredAndroidMarket: AndroidMarket.Google,
-            preferInApp: false,
-            openAppStoreIfInAppFails: true,
-            fallbackPlatformURL: "https://way2love-15416.web.app/",
-          }
-          Rate.rate(options, success => {
-            if (success) {
-              Alert.alert("Thank You for Giving Me Your Valuable Time");
-            }
-          })
-        }} ><Text>Goto</Text></Button>
-      </View>
-      {/* {lapsList()} */}
-
-      {/* <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        onEndReached={handleLoadMore}
-     /> */}
-
-      {/* <FlatList 
-            data={data}
-            renderItem={listss}
-            // keyExtractor={(item, index) => index.toString()}
-            onEndReachedThreshold={0.01}
-            ListFooterComponent={renderFooter}
-            onEndReached={handleLoadMore}
-            onEndReachedThreshold={0.1}
-          /> */}
       <FlatList
         data={data}
         renderItem={listss}
@@ -405,68 +361,7 @@ const HomeScreen = ({ navigation }) => {
         onEndReachedThreshold={0.1}
       />
 
-      {/* 
-          <FlatList
-            data={datas}
-            renderItem={mylistss}
-            keyExtractor={(item, index) => index.toString()}
-            onEndReachedThreshold={0.01}
-            ListFooterComponent={renderFooter}
-            onEndReached={handleLoadMore}
-            onEndReachedThreshold={0.1}
-          /> */}
-
-      {/* 
-        <FlatList
-          ref={flatListRef}
-          refreshing={refresh}
-          data={clientData}
-          renderItem={renderRow}
-          onEndReached={handleLoadMore}
-          onEndReachedThreshold={0.1}
-          onRefresh={() => onRefresh()}
-        />
-        <ActivityIndicator size="large" /> */}
     </SafeAreaView>
-    // <PostBodyWithoutBody data={todoss}></PostBodyWithoutBody>
-
-    // <Container>
-    //   <Header />
-    //   <Content>
-    //     <Card style={{ flex: 0 }}>
-    //       <CardItem>
-    //         <Left>
-    //           <Thumbnail source={{ uri: 'Image URL' }} />
-    //           <Body>
-    //             <Text>NativeBase</Text>
-    //             <Text note>April 15, 2016</Text>
-    //           </Body>
-    //         </Left>
-    //       </CardItem>
-    //       <CardItem>
-    //         <Body>
-    //           <Image source={{ uri: 'Image URL' }} style={{ height: 200, width: 200, flex: 1 }} />
-    //           <Text>
-    //             //Your text here
-    //             </Text>
-    //         </Body>
-    //       </CardItem>
-    //       <CardItem>
-    //         <Left>
-    //           <Button transparent textStyle={{ color: '#87838B' }}>
-    //             <Icon name="logo-github" />
-    //             <Text>1,926 stars</Text>
-    //           </Button>
-    //         </Left>
-    //       </CardItem>
-    //     </Card>
-    //   </Content>
-    //   {/* <Button
-    //     title="Go to details screen"
-    //     onPress={getPost}
-    //   /> */}
-    //   <Button success onPress={getPost}><Text> Go to details screen </Text></Button>
-    // </Container>
   );
 };
 

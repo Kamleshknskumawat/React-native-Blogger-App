@@ -1,4 +1,7 @@
 const BASE_URL = "https://www.googleapis.com/blogger/v3/blogs/";
+export const BASE_URL_GITHUB="https://api.github.com/";
+export const BASE_URL_GITHUB_WEB="https://www.github.com/";
+export const BASE_URL_TWITTER="https://twitter.com/"
 const BLOG_ID = '981187379722719150';
 const USER_ID = '10948874019227604562';
 const USER = "users/"
@@ -23,6 +26,10 @@ export const PAGE_BY_GET = BLOGGER_URL + PAGES;
 export const LIST_POST_SEARCH = BLOGGER_URL + POST + '?' + KEY_VALUE + ORDERBY + FETCH_BODIES_FALSE + QUESTION;
 //export const GET_USER = "https://www.googleapis.com/blogger/v3/" + USER + USER_ID + '?' + KEY_VALUE;
 export const GET_USER = "KamleshKnsKumawat";
+
+
+
+export const GET_GITHUB_USER = BASE_URL_GITHUB+USER+"KamleshKnsKumawat";
 
 
 const NOT_STARTED = 'NOT_STARTED';

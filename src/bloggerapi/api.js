@@ -93,6 +93,18 @@ export const requestPostSeach = async (q) => {
         console.error(error);
     }
 }
+export const requestGithubUser = async () => {
+    try {
+        let getGithubUser = url.GET_GITHUB_USER
+        console.log(getGithubUser);
+        let response = await fetch(getGithubUser);
+        let json = await response.json();
+        console.log(json);
+        return json;
+    } catch (error) {
+        console.error(error);
+    }
+}
 export const requestGetUser = async () => {
     try {
         // let postUrl = url.GET_USER;
