@@ -3,15 +3,29 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Badge } from 'native-base';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import api, { requestPages, requestPostBodyFalse, requestPostById, requestPostSeach, requestTitle, requestPageById, requestPostBodyTrue, requestPostBodyFalseNextPage } from '_bloggerapi/api';
 import { ScrollView, useWindowDimensions } from "react-native";
 import HTML from "react-native-render-html";
 import { Platform } from 'react-native';
 import Share from 'react-native-share';
+import MMKVStorage from "react-native-mmkv-storage";
 export default function PostBodyWithoutBody(props) {
     const contentWidth = useWindowDimensions().width;
+    const MMKV = new MMKVStorage.Loader().initialize();
     const navigation = useNavigation();
+    const [data, setData] = useState([]);
+    const [isEndLoading, setIsEndLoading] = useState(false);
+    const [nextPage, setNextPage] = useState();
     const tagSearch = (arg) => {
         //console.log("tagSearch : " + arg);
+        console.log("" + arg);
+        MMKV.setStringAsync("labal", arg);
+
+        // requestPostSeach(arg)
+        //     .then((json) => { setData(json.items); setNextPage(json.nextPageToken) })
+        //     .catch((error) => console.error(error))
+        //     .finally(() => setIsEndLoading(false));
+        navigation.navigate('Home', { labal: arg })
     }
     share = () => {
         console.log("Whatapp Share");
@@ -95,8 +109,8 @@ export default function PostBodyWithoutBody(props) {
     const getLabals = () => {
         if (props.data.labels) {
             return props.data.labels.map((number) => {
-                return (<Badge style={{ margin: 5, padding: 5 }} onPress={tagSearch(number)} >
-                    <Text >{number}</Text>
+                return (<Badge style={{ margin: 5, padding: 5 }} >
+                    <Text onPress={() => tagSearch(number)}>{number}</Text>
                 </Badge>
                 )
             }
@@ -127,70 +141,70 @@ export default function PostBodyWithoutBody(props) {
     // }
     return (
 
-            <Content style={{ margin: 5, padding: 5 }}>
-                <Card >
-                    <CardItem>
-                        <Left>
-                            <Thumbnail source={{ uri: "https:"+props.data.author.image.url }} />
-                            <Body>
-                                <Text>{props.data.author.displayName}</Text>
-                                <Text note>{props.data.published}</Text>
-                            </Body>
-                        </Left>
-                    </CardItem>
-                    <CardItem>
-
+        <Content style={{ margin: 5, padding: 5 }}>
+            <Card >
+                <CardItem>
+                    <Left>
+                        <Thumbnail source={{ uri: "https:" + props.data.author.image.url }} />
                         <Body>
-                            <CardItem  >
-                                <TouchableOpacity
-                                    onPress={onPresss}
-                                >
-                                    <Text onPress={() => navigation.navigate('PostWithId', { screenName: props.data.title, id: props.data.id })} >{props.data.title} </Text>
-
-                                </TouchableOpacity>
-
-                            </CardItem>
-                            <Image source={{ uri: 'Image URL' }} style={{ height: 20, width: 10}} />
-
-                            <ScrollView >
-                                <HTML  source={{ html: props.data.content !== undefined ? `~${props.data.content}` : props.data.title }} contentWidth={contentWidth} />
-                            </ScrollView>
-                            {/*   <Text note>{props.data.content !== undefined ? props.data.content : props.data.title}</Text> */}
+                            <Text>{props.data.author.displayName}</Text>
+                            <Text note>{props.data.published}</Text>
                         </Body>
-                    </CardItem>
-                    <CardItem>
-                        <Left>
-                            {getLabals()}
-                            {/* <Badge>
+                    </Left>
+                </CardItem>
+                <CardItem>
+
+                    <Body>
+                        <CardItem  >
+                            <TouchableOpacity
+                                onPress={onPresss}
+                            >
+                                <Text onPress={() => navigation.navigate('PostWithId', { screenName: props.data.title, id: props.data.id })} >{props.data.title} </Text>
+
+                            </TouchableOpacity>
+
+                        </CardItem>
+                        <Image source={{ uri: 'Image URL' }} style={{ height: 20, width: 10 }} />
+
+                        <ScrollView >
+                            <HTML source={{ html: props.data.content !== undefined ? `~${props.data.content}` : props.data.title }} contentWidth={contentWidth} />
+                        </ScrollView>
+                        {/*   <Text note>{props.data.content !== undefined ? props.data.content : props.data.title}</Text> */}
+                    </Body>
+                </CardItem>
+                <CardItem>
+                    <Left>
+                        {getLabals()}
+                        {/* <Badge>
                                 <Text onPress={tagSearch}>{getLabals()}</Text>
                             </Badge> */}
-                        </Left>
-                    </CardItem>
+                    </Left>
+                </CardItem>
 
-                    <CardItem>
-                        <Left>
-                            <Button transparent onPress={shareFB} textStyle={{ color: '#87838B' }}>
-                                <Icon name="logo-facebook" />
+                <CardItem>
+                    <Left>
+                        <Button transparent onPress={shareFB} textStyle={{ color: '#87838B' }}>
+                            <Icon name="logo-facebook" />
 
-                            </Button>
-                            <Button transparent onPress={shareIG} textStyle={{ color: '#87838B' }}>
-                                <Icon name="logo-instagram" />
+                        </Button>
+                        <Button transparent onPress={shareIG} textStyle={{ color: '#87838B' }}>
+                            <Icon name="logo-instagram" />
 
-                            </Button>
-                            <Button transparent onPress={shareTwitter} textStyle={{ color: '#87838B' }}>
-                                <Icon name="logo-twitter" />
-                            </Button>
-                            <Button transparent onPress={shareSC} textStyle={{ color: '#87838B' }} >
-                                <Icon name="logo-snapchat" />
-                            </Button>
-                            <Button transparent onPress={share} textStyle={{ color: '#87838B' }} >
-                                <Icon name="logo-whatsapp" />
-                            </Button>
-                        </Left>
-                    </CardItem>
-                </Card>
-            </Content>
-      
+                        </Button>
+                        <Button transparent onPress={shareTwitter} textStyle={{ color: '#87838B' }}>
+                            <Icon name="logo-twitter" />
+                        </Button>
+                        <Button transparent onPress={shareSC} textStyle={{ color: '#87838B' }} >
+                            <Icon name="logo-snapchat" />
+                        </Button>
+                        <Button transparent onPress={share} textStyle={{ color: '#87838B' }} >
+                            <Icon name="logo-whatsapp" />
+                        </Button>
+                    </Left>
+                </CardItem>
+            </Card>
+        </Content>
+
     )
 };
 const styles = StyleSheet.create({

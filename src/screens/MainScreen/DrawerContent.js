@@ -19,8 +19,10 @@ import { logout } from '_actions/UserActions';
 import { AuthContext } from './context';
 import MMKVStorage from "react-native-mmkv-storage";
 import { useDispatch } from 'react-redux';
-import { rattingLink,rattingUs } from '_utils/bloggerUtils';
-
+import { rattingLink, rattingUs } from '_utils/bloggerUtils';
+import { openInBrowser } from '_utils/bloggerUtils';
+import { requestGithubUser } from '_bloggerapi/api';
+const URL = require('../../constants/blogger');
 export function DrawerContent(props) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -29,6 +31,21 @@ export function DrawerContent(props) {
     const signOut = () => {
         dispatch(logout());
     };
+
+    const [datas, setDatas] = useState();
+    const [isEndLoading, setIsEndLoading] = useState(false);
+    useEffect(() => {
+        console.log("datas");
+        if (datas == undefined) {
+            setIsEndLoading(true)
+
+            requestGithubUser()
+                .then((json) => setDatas(json))
+                .catch((error) => console.error(error))
+                .finally(() => setIsEndLoading(false));
+
+        }
+    });
     const onShare = async () => {
         try {
 
@@ -112,28 +129,28 @@ export function DrawerContent(props) {
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
-                    <View style={styles.userInfoSection}>
+                    <View style={styles.userInfoSection} datas>
                         <View style={{ flexDirection: 'row', marginTop: 15 }}>
                             <Avatar.Image
                                 source={{
-                                    uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
+                                    uri: datas ? datas.avatar_url : null
                                 }}
-                                size={50}
+                                size={50} onPress={() => openInBrowser(datas ?datas.html_url:null)}
                             />
-                            <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                                <Title style={styles.title}>{data.length > 0 ? data : "Kns"}</Title>
-                                <Caption style={styles.caption}>@{data.length > 0 ? data : "Kns"}</Caption>
+                            <View style={{ marginLeft: 15, flexDirection: 'column' }} >
+                                <Title style={styles.title} onPress={() => openInBrowser(datas ?datas.html_url:null)}>{datas ? datas.login : null}</Title>
+                                <Caption style={styles.caption} onPress={() => openInBrowser(datas ?datas.html_url:null)}>{datas ? datas.company : null}</Caption>
                             </View>
                         </View>
 
                         <View style={styles.row}>
                             <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
-                                <Caption style={styles.caption}>Following</Caption>
+                                <Paragraph style={[styles.paragraph, styles.caption]} onPress={() => openInBrowser(datas ?datas.html_url:null)}>{datas ? datas.following : null}</Paragraph>
+                                <Caption style={styles.caption} onPress={() => openInBrowser(datas ?datas.html_url:null)}>Following</Caption>
                             </View>
-                            <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
-                                <Caption style={styles.caption}>Followers</Caption>
+                            <View style={styles.section} >
+                                <Paragraph style={[styles.paragraph, styles.caption]} onPress={() => openInBrowser(datas ?datas.html_url:null)}>{datas ? datas.followers : null}</Paragraph>
+                                <Caption style={styles.caption} onPress={() => openInBrowser(datas ?datas.html_url:null)}>Followers</Caption>
                             </View>
                         </View>
                     </View>

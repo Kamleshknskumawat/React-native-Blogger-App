@@ -83,7 +83,7 @@ export const requestPageById = async (pageId) => {
 }
 export const requestPostSeach = async (q) => {
     try {
-        let postUrl = url.LIST_POST_SEARCH + q;
+        let postUrl = url.LIST_POST_SEARCH + q+url.LIST_POST_SEARCH_END;
         console.log(postUrl);
         let response = await fetch(postUrl);
         let json = await response.json();

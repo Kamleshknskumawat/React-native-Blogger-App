@@ -6,7 +6,8 @@ import HTML from "react-native-render-html";
 import { Image } from 'react-native';
 import api, { requestPages, requestPostBodyFalse, requestPostById, requestPostSeach, requestTitle, requestPageById, requestPostBodyTrue, requestPostBodyFalseNextPage } from '_bloggerapi/api';
 import PostBodyWithoutBody from './PostBodyWithoutBody';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Toast } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Left, Body, Toast } from 'native-base';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import OneSignal from 'react-native-onesignal';
 import Rate, { AndroidMarket } from 'react-native-rate'
@@ -14,45 +15,69 @@ import PushNotification from "react-native-push-notification";
 import MMKVStorage from "react-native-mmkv-storage";
 import InAppReview from 'react-native-in-app-review';
 const MMKV = new MMKVStorage.Loader().initialize();
+import { useRoute } from '@react-navigation/native';
 InAppReview.isAvailable();
 const HomeScreen = ({ navigation }) => {
+  let route = useRoute();
   const contentWidth = useWindowDimensions().width;
   const { colors } = useTheme();
   const [isLoading, setLoading] = useState(true);
   const [isEndLoading, setIsEndLoading] = useState(false);
   const [isShow, setShow] = useState(false);
   const [datas, setDatas] = useState();
-  const [data, setData] = useState([]);
+  const [isShowLabal, setShowLabal] = useState(false);
+  let [data, setData] = useState([]);
   const [nextPage, setNextPage] = useState();
   const [subscribed, setSubscribed] = useState();
   const [pages, setPages] = useState(10);
   let mydatta = [];
+  let labal = route.params;
   const theme = useTheme();
   useEffect(() => {
     setIsEndLoading(true)
-    console.log("received");
-    console.log(data);
-    if (data == undefined || data == '') {
+    // if (data == undefined || data == '' || labal != undefined) {
+    //   getPost();
+    // } 
+
+    if (labal != undefined && !isShowLabal) {
+      console.log("Get Labal List");
+      console.log(labal);
+      console.log(isShowLabal);
+      setData([]);
+      getLabalList(labal.labal);
+      console.log("ScreenName");
+      console.log(labal.labal);
+      navigation.setOptions({
+        title: labal.labal,
+        headerLeft: () => (
+          <Icon.Button name="arrow-back-outline" size={25} backgroundColor="#009387" onPress={() => clearLabal()}></Icon.Button>
+        )
+      })
+      setShowLabal(true)
+    } else if ((data == undefined || data == '') && !isShowLabal) {
+      console.log("received");
       getPost();
-
-
-    } else {
-      console.log("not emptyu");
     }
-
-    setIsEndLoading(true)
-    console.log("received");
-    console.log(datas);
-    if (datas == undefined || datas == '') {
-      getData();
-
-
-    } else {
-      console.log("not emptyu");
-    }
-
   });
-
+  const clearLabal = () => {
+    console.log("clearLabal called");
+    data = [];
+    setData([]);
+    setShowLabal(false)
+    labal = [];
+    route.params = null;
+    console.log(route);
+    console.log(route.params);
+    console.log(data);
+    console.log(labal);
+    console.log(isShowLabal);
+    navigation.setOptions({
+      title:"Overview",
+      headerLeft: () => (
+        <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
+      )
+    })
+  }
   const budgetCount = async () => {
     console.log("budgetCount");
     var budgeCount = await MMKV.getStringAsync("budgeCount");
@@ -167,16 +192,18 @@ const HomeScreen = ({ navigation }) => {
         mydatta = data);
   }
 
+  const getLabalList = (arg) => {
+    requestPostSeach(arg)
+      .then((json) => { setData(json.items); setNextPage(json.nextPageToken) })
+      .catch((error) => console.error(error))
+      .finally(() => setIsEndLoading(false));
+  }
   const getPost = () => {
 
     requestPostBodyFalse(pages)
       .then((json) => { setData(json.items); setNextPage(json.nextPageToken) })
       .catch((error) => console.error(error))
-      .finally(() => setIsEndLoading(false),
-        data.map((data) => {
-          console.log(data);
-        }),
-        mydatta = data);
+      .finally(() => setIsEndLoading(false));
 
 
 
@@ -234,13 +261,6 @@ const HomeScreen = ({ navigation }) => {
     //  });
     setSubscribed(deviceState.subscribed);
 
-  }
-  getData = async () => {
-    const apiURL = "https://jsonplaceholder.typicode.com/photos?limit=10&_page=1";
-
-    fetch(apiURL).then((res) => res.json()).then((resJson) => {
-      setDatas(resJson);
-    })
   }
   const lapsList = () => {
 

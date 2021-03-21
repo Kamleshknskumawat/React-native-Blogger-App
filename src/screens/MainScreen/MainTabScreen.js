@@ -94,10 +94,7 @@ const HomeStackScreen = ({ navigation }) => (
     }} />
 
     <HomeStack.Screen name="PostWithId" component={PostWithId} options={{
-      title: 'PostWithId',
-      headerLeft: () => (
-        <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
-      )
+      title: 'PostWithId'
     }} />
 
     <HomeStack.Screen name="BookmarkScreen" component={BookmarkScreen} options={{

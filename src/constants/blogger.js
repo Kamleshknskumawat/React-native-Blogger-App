@@ -16,14 +16,15 @@ const ORDERBY = "&orderBy=PUBLISHED";
 const FETCH_BODIES_TRUE = "&fetchBodies=true";
 const FETCH_BODIES_FALSE = "&fetchBodies=false";
 const FETCH_FETCHIMAGE_TRUE = "&fetchImages=true";
-const QUESTION = "&q=";
+const QUESTION = "/search?q=";
 export const HOME = BLOGGER_URL + '?' + KEY_VALUE;
 export const LIST_PAGE = BLOGGER_URL + PAGES + '?' + KEY_VALUE + MAX_RESULTS;
 export const LIST_POST_BODY_FALSE = BLOGGER_URL + POST + '?' + KEY_VALUE + ORDERBY + FETCH_FETCHIMAGE_TRUE + FETCH_BODIES_FALSE + MAX_RESULTS;
 export const LIST_POST_BODY_TRUE = BLOGGER_URL + POST + '?' + KEY_VALUE + ORDERBY + FETCH_BODIES_TRUE + MAX_RESULTS;
 export const POST_BY_GET = BLOGGER_URL + POST;
 export const PAGE_BY_GET = BLOGGER_URL + PAGES;
-export const LIST_POST_SEARCH = BLOGGER_URL + POST + '?' + KEY_VALUE + ORDERBY + FETCH_BODIES_FALSE + QUESTION;
+export const LIST_POST_SEARCH = BLOGGER_URL + POST + QUESTION;
+export const LIST_POST_SEARCH_END='&' + KEY_VALUE + ORDERBY + FETCH_BODIES_FALSE;
 //export const GET_USER = "https://www.googleapis.com/blogger/v3/" + USER + USER_ID + '?' + KEY_VALUE;
 export const GET_USER = "KamleshKnsKumawat";
 
