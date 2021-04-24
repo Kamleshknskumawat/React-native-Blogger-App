@@ -66,11 +66,6 @@ const HomeScreen = ({ navigation }) => {
     setShowLabal(false)
     labal = [];
     route.params = null;
-    console.log(route);
-    console.log(route.params);
-    console.log(data);
-    console.log(labal);
-    console.log(isShowLabal);
     navigation.setOptions({
       title:"Overview",
       headerLeft: () => (
