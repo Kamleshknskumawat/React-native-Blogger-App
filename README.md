@@ -7,6 +7,7 @@
 
 # React Native BloggerApp
 
+## Please support our work on patreon. <a href="https://www.patreon.com/kumawat"><img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dkumawat%26type%3Dpatrons&style=for-the-badge" /></a>
 
 ## Features
 
