@@ -2,10 +2,10 @@ const BASE_URL = "https://www.googleapis.com/blogger/v3/blogs/";
 export const BASE_URL_GITHUB="https://api.github.com/";
 export const BASE_URL_GITHUB_WEB="https://www.github.com/";
 export const BASE_URL_TWITTER="https://twitter.com/"
-const BLOG_ID = ''; //981187379722719150
-const USER_ID = ''; //10948874019227604562
+const BLOG_ID = '981187379722719150'; //981187379722719150
+const USER_ID = '10948874019227604562'; //10948874019227604562
 export const GET_USER = "KamleshKnsKumawat"; // Here your github username eg, https://api.github.com/users/Kamleshknskumawat -> after users name name.
-const KEY = ''; //Here place your api key. https://www.youtube.com/watch?v=2aSpzoLSwyA
+const KEY = 'AIzaSyCoP_fSjuDjp0cYeJcU0Shsic_y4AG13mM'; //Here place your api key. https://www.youtube.com/watch?v=2aSpzoLSwyA
 const USER = "users/"
 const KEYEQUAL = 'key=';
 const BLOGGER_URL = BASE_URL + BLOG_ID;

@@ -32,7 +32,7 @@ const BookmarkScreen = ({ navigation }) => {
         }, ()=>{console.log('successCallback')}, ()=>{console.log('failureCallback')});
     }
     const failureCallback = (data) => {
-        console.log(data)
+       // console.log(data)
         // in case no action taken
         if (data['status'] == "FAILURE") {
             setState(state.Status = "FAILURE")
@@ -67,7 +67,7 @@ const BookmarkScreen = ({ navigation }) => {
     }
     const successCallback = (data) => {
         //
-        console.log(data);
+       // console.log(data);
 
         // setState(state.Status="SUCCESS");
         // setState(state.Status=data['txnId']);

@@ -35,7 +35,7 @@ export function DrawerContent(props) {
     const [datas, setDatas] = useState();
     const [isEndLoading, setIsEndLoading] = useState(false);
     useEffect(() => {
-        console.log("datas");
+        //console.log("datas");
         if (datas == undefined) {
             setIsEndLoading(true)
 
@@ -50,15 +50,15 @@ export function DrawerContent(props) {
         try {
 
             const userInfo = await MMKV.getStringAsync("userInfo");
-            console.log(userInfo);
+            //console.log(userInfo);
             if (userInfo == 'undefined' || userInfo == "" || userInfo === null) {
-                console.log("inside");
+                //console.log("inside");
                 requestGetUser()
                     .then((json) => setData(json))
                     .catch((error) => console.error(error))
                     .finally(() => setLoading(false));
                 if (data.length > 0) {
-                    console.log(data);
+                    //console.log(data);
                     await MMKV.setStringAsync("userInfo", data);
                 }
 

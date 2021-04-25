@@ -1,4 +1,4 @@
-package com.kumawat.mykiranabook;
+package com.kumawat.rnbloggerapp;
 
 import android.os.Bundle;
 
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "MyKiranaBook";
+        return "RN";
     }
 
     @Override

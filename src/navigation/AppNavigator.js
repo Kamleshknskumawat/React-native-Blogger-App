@@ -18,7 +18,7 @@ const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 function AppNavigator() {
   const { colors } = useTheme();
-  console.log("AppNavigator");
+  //console.log("AppNavigator");
 
   return (
 

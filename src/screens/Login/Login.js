@@ -33,11 +33,11 @@ function Login() {
   );
 
   const handleSubmit = () => {
-console.log(disabled);
-console.log(username);
+//console.log(disabled);
+//console.log(username);
 
 setPassword(username);
-console.log(password);
+//console.log(password);
     if (disabled) {
       alert('Please Agree to Terms and Conditions');
     }

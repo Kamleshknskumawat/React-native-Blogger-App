@@ -38,8 +38,8 @@ export const login = (username, password) => async dispatch => {
   dispatch(loginRequest());
   try {
     const user = await UserController.login(username, password);
-    console.log("user:"+user);
-    console.log(user);
+    //console.log("user:"+user);
+    //console.log(user);
     dispatch(loginSuccess(user));
   } catch (error) {
     dispatch(loginError(error.message));
@@ -47,12 +47,12 @@ export const login = (username, password) => async dispatch => {
 };
 
 export const forgotPassword = () => async dispatch => {
-  console.log("forgotPassword");
+  //console.log("forgotPassword");
   try {
-    console.log("UserController");
+    //console.log("UserController");
     await UserController.forgotPassword();
   } finally {
-    console.log("  dispatch(forgotPasswordSuccess())");
+    //console.log("  dispatch(forgotPasswordSuccess())");
     dispatch(forgotPasswordSuccess());
   }
 };

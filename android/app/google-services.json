@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "737848524162",
-    "project_id": "mykiranabook-499c6",
-    "storage_bucket": "mykiranabook-499c6.appspot.com"
+    "project_number": "26858739987",
+    "project_id": "mykiranabook",
+    "storage_bucket": "mykiranabook.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:737848524162:android:bdc1f53b80894a071be39b",
+        "mobilesdk_app_id": "1:26858739987:android:b66c0b11627f027706a2e6",
         "android_client_info": {
-          "package_name": "com.kumawat.mykiranabook"
+          "package_name": "com.kumawat.rnbloggerapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "737848524162-6pavipn6u8ve96071sq3ag02713dckne.apps.googleusercontent.com",
+          "client_id": "26858739987-gfoljm7srj6tqnr5478mkmghq1cnltk6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBsyCL3uDC-ecvSvvQ0kuqnEPdYS1PymSY"
+          "current_key": "AIzaSyD98AcgXRC1EWcjShNGMOqfwt29mXGfuqQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "737848524162-6pavipn6u8ve96071sq3ag02713dckne.apps.googleusercontent.com",
+              "client_id": "26858739987-gfoljm7srj6tqnr5478mkmghq1cnltk6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
