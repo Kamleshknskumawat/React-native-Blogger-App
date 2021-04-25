@@ -1,0 +1,3 @@
+User-Agent: *
+Allow: /
+Sitemap: https://kamleshknskumawat.github.io/React-native-Blogger-App/sitemap.xml
